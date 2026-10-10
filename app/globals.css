@@ -55,7 +55,7 @@
   --font-mono: var(--font-mono-face), ui-monospace, "SFMono-Regular", monospace;
 
   /* Fluid type scale */
-  --text-hero: clamp(2rem, 0.95rem + 4.6vw, 4.5rem);
+  --text-hero: clamp(2.25rem, 1.1rem + 3.4vw, 4rem);
   --text-hero--line-height: 1.08;
   --text-hero--letter-spacing: -0.035em;
   --text-display: clamp(2.5rem, 1.55rem + 4.2vw, 5.25rem);

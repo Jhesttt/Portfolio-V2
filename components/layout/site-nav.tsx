@@ -1,9 +1,9 @@
 "use client";
 
 import { List, X } from "@phosphor-icons/react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion } from "motion/react";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { BrandMark } from "@/components/ui/brand-mark";
 import { DirectionalLink } from "@/components/ui/directional-link";
 import { cn } from "@/lib/utils";
@@ -26,15 +26,64 @@ const tabs = nav.filter((item) => item.href !== "/");
  */
 export function SiteNav() {
   const pathname = usePathname();
+  const reduce = useReducedMotion();
   const [openPath, setOpenPath] = useState<string | null>(null);
   // Deriving "open" from the path it was opened on closes the sheet on any navigation.
   const open = openPath === pathname;
 
   const headerRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
   const close = () => setOpenPath(null);
+
+  /*
+   * Active marker: one element, always mounted, positioned with offsetLeft/offsetTop of the active link.
+   * Those offsets are relative to the pill itself, so page scroll (Next scrolls to top on navigation)
+   * can never leak into the animation. A shared-layout (layoutId) marker measured in page coordinates
+   * and slid in from below when navigating from a scrolled page.
+   */
+  const markerX = useMotionValue(0);
+  const markerY = useMotionValue(0);
+  const markerW = useMotionValue(0);
+  const markerH = useMotionValue(0);
+  const markerOpacity = useMotionValue(0);
+  const placed = useRef(false);
+
+  const placeMarker = useCallback(
+    (animated: boolean) => {
+      const active = navRef.current?.querySelector<HTMLElement>('a[aria-current="page"]');
+      // Hidden tabs (mobile) have no offsetParent: hide the marker instead of pointing at nothing.
+      if (!active || active.offsetParent === null) {
+        markerOpacity.set(0);
+        return;
+      }
+      const target = [active.offsetLeft, active.offsetTop, active.offsetWidth, active.offsetHeight];
+      const values = [markerX, markerY, markerW, markerH];
+      if (!animated || !placed.current || reduce) {
+        values.forEach((value, i) => value.set(target[i]));
+      } else {
+        values.forEach((value, i) => animate(value, target[i], spring.snappy));
+      }
+      markerOpacity.set(1);
+      placed.current = true;
+    },
+    [markerX, markerY, markerW, markerH, markerOpacity, reduce],
+  );
+
+  // Slide to the new active link on every route change.
+  useLayoutEffect(() => {
+    placeMarker(true);
+  }, [pathname, placeMarker]);
+
+  // Re-snap (no animation) when sizes change: viewport breakpoints and web fonts finishing loading.
+  useEffect(() => {
+    const snap = () => placeMarker(false);
+    window.addEventListener("resize", snap);
+    document.fonts?.ready.then(snap);
+    return () => window.removeEventListener("resize", snap);
+  }, [placeMarker]);
 
   useEffect(() => {
     if (!open) return;
@@ -79,12 +128,19 @@ export function SiteNav() {
       className="pointer-events-none fixed inset-x-0 top-4 z-40 flex justify-center px-4"
     >
       <motion.nav
+        ref={navRef}
         aria-label="Primary"
         variants={fadeDown}
         initial="hidden"
         animate="visible"
         className="site-header glass glass-blur pointer-events-auto relative z-40 flex h-14 w-full max-w-fit items-center gap-1 rounded-full p-1.5 pr-2 max-md:justify-between md:gap-2"
       >
+        <motion.span
+          aria-hidden
+          style={{ x: markerX, y: markerY, width: markerW, height: markerH, opacity: markerOpacity }}
+          className="pointer-events-none absolute top-0 left-0 rounded-full bg-highlight"
+        />
+
         <DirectionalLink
           href="/"
           aria-label="Home"
@@ -94,13 +150,6 @@ export function SiteNav() {
             pathname === "/" ? "text-on-highlight" : "text-accent hover:bg-surface-hover",
           )}
         >
-          {pathname === "/" && (
-            <motion.span
-              layoutId="nav-active"
-              transition={spring.snappy}
-              className="absolute inset-0 rounded-full bg-highlight"
-            />
-          )}
           <BrandMark className="relative size-6" />
         </DirectionalLink>
 
@@ -117,14 +166,7 @@ export function SiteNav() {
                     active ? "text-on-highlight" : "text-fg-muted hover:text-fg",
                   )}
                 >
-                  {active && (
-                    <motion.span
-                      layoutId="nav-active"
-                      transition={spring.snappy}
-                      className="absolute inset-0 rounded-full bg-highlight"
-                    />
-                  )}
-                  <span className="relative">{item.label}</span>
+                  {item.label}
                 </DirectionalLink>
               </li>
             );

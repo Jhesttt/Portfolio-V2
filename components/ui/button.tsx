@@ -11,10 +11,19 @@ const variants = {
     "bg-highlight text-on-highlight hover:shadow-glow [&_.btn-icon]:bg-on-highlight/10",
 } as const;
 
+/** How the trailing icon reacts on hover. Match the glyph: arrows go up-right, downloads go down. */
+const iconMotions = {
+  diagonal: "group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
+  down: "group-hover:translate-y-0.5",
+  none: "",
+} as const;
+
 type ButtonProps = {
   variant?: keyof typeof variants;
   /** Trailing icon, nested in its own circle (button-in-button). */
   icon?: ReactNode;
+  /** Defaults to "down" for download links and "diagonal" otherwise. */
+  iconMotion?: keyof typeof iconMotions;
   className?: string;
   children: ReactNode;
 } & (
@@ -41,14 +50,15 @@ export function buttonStyles({
   );
 }
 
-export function Button({ variant = "primary", icon, className, children, ...rest }: ButtonProps) {
+export function Button({ variant = "primary", icon, iconMotion, className, children, ...rest }: ButtonProps) {
   const classes = buttonStyles({ variant, withIcon: Boolean(icon), className });
+  const motion = iconMotions[iconMotion ?? (rest.download !== undefined ? "down" : "diagonal")];
 
   const content = (
     <>
       <span>{children}</span>
       {icon && (
-        <span className="btn-icon grid size-9 place-items-center rounded-full transition-transform duration-500 ease-inertia group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+        <span className={cn("btn-icon grid size-9 place-items-center rounded-full transition-transform duration-500 ease-inertia", motion)}>
           {icon}
         </span>
       )}
