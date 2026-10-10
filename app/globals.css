@@ -1,26 +1,455 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Design tokens (Phase 0 plan, approved)
+   Layer 1: raw palette (static theme colors, never used directly in components
+            unless building gradients).
+   Layer 2: semantic tokens that swap per theme. Components use only these.
+   Rule: no pure black or white anywhere. Tailwind's default palette is removed
+   below so its stock black and white utilities cannot compile.
+   scripts/check-colors.mjs guards the source files as well.
+   ========================================================================== */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme static {
+  --color-*: initial;
+  --shadow-*: initial;
+  --inset-shadow-*: initial;
+  --drop-shadow-*: initial;
+
+  /* Brand ramps. Starred values come straight from the brief. */
+  --color-forest-700: #1e4637;
+  --color-forest-600: #285a48; /* brief: forest */
+  --color-jade-700: #2f6b56;
+  --color-jade-600: #367a63;
+  --color-jade-500: #408a71; /* brief: jade */
+  --color-jade-400: #5ba68b;
+  --color-mint-300: #b0e4cc; /* brief: mint */
+  --color-mint-200: #cdeedf;
+  --color-mint-100: #e3f6ee;
+
+  /* Dark surfaces */
+  --color-ink-950: #050d0c;
+  --color-ink-900: #091413; /* brief: ink */
+  --color-ink-850: #0e1c1a;
+  --color-ink-800: #142624;
+  --color-ink-700: #1d3430;
+  --color-ink-600: #2b4a43;
+
+  /* Light surfaces */
+  --color-paper-50: #fafdfb;
+  --color-paper-100: #f4faf7;
+  --color-paper-200: #e8f3ee;
+  --color-paper-300: #d6e9e0;
+
+  /* Text ramps */
+  --color-moss-800: #35504a;
+  --color-moss-700: #47625b;
+  --color-mist-50: #e4f2ea;
+  --color-mist-300: #a8c2b7;
+  --color-mist-400: #8ba89c;
+
+  --font-display: var(--font-display-face), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-body-face), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono-face), ui-monospace, "SFMono-Regular", monospace;
+
+  /* Fluid type scale */
+  --text-display: clamp(2.5rem, 1.55rem + 4.2vw, 5.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.035em;
+  --text-h1: clamp(2.125rem, 1.5rem + 2.8vw, 3.75rem);
+  --text-h1--line-height: 1.06;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h2: clamp(1.625rem, 1.25rem + 1.6vw, 2.5rem);
+  --text-h2--line-height: 1.12;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.015em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.55;
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.3;
+  --text-micro--letter-spacing: 0.18em;
+
+  /* Shape lock: interactive elements are pills, containers are squircles. */
+  --radius-card: 1.75rem; /* 28px outer shell */
+  --radius-core: 1.375rem; /* 22px inner core = outer minus 6px bezel */
+  --radius-media: 1rem;
+
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inertia: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+}
+
+/* Semantic tokens: light */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --bg: var(--color-paper-100);
+  --bg-sunken: var(--color-paper-200);
+  --surface: var(--color-paper-50);
+  --surface-hover: var(--color-paper-200);
+
+  --glass-fill: color-mix(in srgb, var(--color-paper-50) 62%, transparent);
+  --glass-edge: color-mix(in srgb, var(--color-paper-50) 80%, transparent);
+  --glass-line: color-mix(in srgb, var(--color-ink-900) 10%, transparent);
+  --glass-blur: 20px;
+
+  --line: color-mix(in srgb, var(--color-ink-900) 10%, transparent);
+  --line-strong: color-mix(in srgb, var(--color-ink-900) 22%, transparent);
+
+  --fg: var(--color-ink-900);
+  --fg-muted: var(--color-moss-800);
+  --fg-subtle: var(--color-moss-700);
+  --accent: var(--color-forest-600);
+  --link: var(--color-jade-700);
+
+  --brand: var(--color-forest-600);
+  --brand-hover: var(--color-forest-700);
+  --brand-edge: var(--color-forest-600);
+  --on-brand: var(--color-paper-100);
+
+  --highlight: var(--color-mint-200);
+  --on-highlight: var(--color-forest-700);
+
+  --chip: color-mix(in srgb, var(--color-forest-600) 10%, transparent);
+  --ring: var(--color-forest-600);
+
+  --selection-bg: var(--color-mint-200);
+  --selection-fg: var(--color-ink-900);
+
+  --shadow-rgb: 9 20 19;
+  --glow-rgb: 176 228 204;
+  --glow-alpha: 0.5;
+
+  /* Ambient orbs behind the glass */
+  --orb-1: color-mix(in srgb, var(--color-mint-200) 70%, transparent);
+  --orb-2: color-mix(in srgb, var(--color-jade-400) 25%, transparent);
+  --orb-3: color-mix(in srgb, var(--color-forest-600) 12%, transparent);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Semantic tokens: dark */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: var(--color-ink-900);
+  --bg-sunken: var(--color-ink-950);
+  --surface: var(--color-ink-800);
+  --surface-hover: var(--color-ink-700);
+
+  --glass-fill: color-mix(in srgb, var(--color-ink-800) 55%, transparent);
+  --glass-edge: color-mix(in srgb, var(--color-mint-100) 10%, transparent);
+  --glass-line: color-mix(in srgb, var(--color-mint-300) 14%, transparent);
+
+  --line: color-mix(in srgb, var(--color-mint-300) 12%, transparent);
+  --line-strong: color-mix(in srgb, var(--color-mint-300) 24%, transparent);
+
+  --fg: var(--color-mist-50);
+  --fg-muted: var(--color-mist-300);
+  --fg-subtle: var(--color-mist-400);
+  --accent: var(--color-mint-300);
+  --link: var(--color-mint-300);
+
+  --brand: var(--color-forest-600);
+  --brand-hover: var(--color-jade-700);
+  --brand-edge: var(--color-jade-400);
+  --on-brand: var(--color-mint-100);
+
+  --highlight: var(--color-mint-300);
+  --on-highlight: var(--color-ink-900);
+
+  --chip: color-mix(in srgb, var(--color-mint-300) 10%, transparent);
+  --ring: var(--color-mint-300);
+
+  --selection-bg: var(--color-forest-600);
+  --selection-fg: var(--color-mint-100);
+
+  --shadow-rgb: 5 13 12;
+  --glow-alpha: 0.18;
+
+  --orb-1: color-mix(in srgb, var(--color-forest-600) 45%, transparent);
+  --orb-2: color-mix(in srgb, var(--color-jade-500) 22%, transparent);
+  --orb-3: color-mix(in srgb, var(--color-mint-300) 8%, transparent);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Transparency is a user setting too: swap glass for solid, drop the blur. */
+@media (prefers-reduced-transparency: reduce) {
+  :root,
+  [data-theme="dark"] {
+    --glass-fill: var(--surface);
+    --glass-blur: 0px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Expose semantic tokens as Tailwind utilities (bg-bg, text-fg, border-line...) */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-sunken: var(--bg-sunken);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-glass: var(--glass-fill);
+  --color-glass-edge: var(--glass-edge);
+  --color-glass-line: var(--glass-line);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-accent: var(--accent);
+  --color-link: var(--link);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-edge: var(--brand-edge);
+  --color-on-brand: var(--on-brand);
+  --color-highlight: var(--highlight);
+  --color-on-highlight: var(--on-highlight);
+  --color-chip: var(--chip);
+  --color-ring: var(--ring);
+
+  /* Shadows are tinted with the ink family, never black. */
+  --shadow-soft:
+    0 1px 2px rgb(var(--shadow-rgb) / 0.06),
+    0 14px 32px -14px rgb(var(--shadow-rgb) / 0.22);
+  --shadow-lift:
+    0 2px 4px rgb(var(--shadow-rgb) / 0.06),
+    0 24px 48px -16px rgb(var(--shadow-rgb) / 0.34);
+  --shadow-glow:
+    0 0 0 1px color-mix(in srgb, rgb(var(--glow-rgb)) 40%, transparent),
+    0 12px 44px -10px rgb(var(--glow-rgb) / var(--glow-alpha));
+  --inset-shadow-edge: inset 0 1px 0 var(--glass-edge);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  *,
+  ::after,
+  ::before {
+    border-color: var(--line);
+  }
+
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--selection-bg);
+    color: var(--selection-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/* ==========================================================================
+   Glass utilities
+   .glass       translucent fill + hairline + inner highlight (no blur filter)
+   .glass-blur  adds the frosted backdrop-filter. Reserved for fixed surfaces
+                and a few hero cells (blur budget is tuned in Phase 5).
+   ========================================================================== */
+
+@utility glass {
+  background: var(--glass-fill);
+  border: 1px solid var(--glass-line);
+  box-shadow:
+    inset 0 1px 0 var(--glass-edge),
+    var(--shadow-soft);
+}
+
+@utility glass-blur {
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+}
+
+/* Static colour field behind everything (see AmbientBackground). */
+@utility ambient {
+  background-image:
+    radial-gradient(60rem 38rem at 12% -6%, var(--orb-1), transparent 70%),
+    radial-gradient(46rem 34rem at 96% 22%, var(--orb-2), transparent 70%),
+    radial-gradient(56rem 38rem at 46% 108%, var(--orb-3), transparent 70%);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :root {
+    --glass-fill: var(--surface);
+  }
+}
+
+/* ==========================================================================
+   Theme icon swap. Both icons are always in the DOM and CSS picks one from
+   the data-theme attribute, so there is no hydration mismatch and no flash.
+   ========================================================================== */
+
+.theme-icon {
+  transition:
+    opacity 0.45s var(--ease-settle),
+    transform 0.6s var(--ease-inertia);
+}
+
+.theme-icon-moon {
+  opacity: 0;
+  transform: rotate(-70deg) scale(0.5);
+}
+
+[data-theme="dark"] .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(70deg) scale(0.5);
+}
+
+[data-theme="dark"] .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* ==========================================================================
+   View transitions
+   Pages: directional slide (forward / back by nav order), nav stays anchored.
+   Theme: circular reveal from the toggle.
+   ========================================================================== */
+
+::view-transition {
+  pointer-events: none;
+}
+
+.site-header {
+  view-transition-name: site-header;
+}
+
+/* While the theme is switching, un-name the header so it is part of the reveal */
+html[data-theme-switching] .site-header {
+  view-transition-name: none;
+}
+
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+
+::view-transition-old(site-header) {
+  display: none;
+}
+
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-slide {
+  from {
+    translate: var(--vt-slide-offset) 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+::view-transition-old(.nav-forward) {
+  --vt-slide-offset: -48px;
+  animation:
+    180ms var(--ease-exit) both vt-fade reverse,
+    420ms var(--ease-exit) both vt-slide reverse;
+}
+
+::view-transition-new(.nav-forward) {
+  --vt-slide-offset: 48px;
+  animation:
+    300ms var(--ease-settle) 140ms both vt-fade,
+    700ms var(--ease-settle) 80ms both vt-slide;
+}
+
+::view-transition-old(.nav-back) {
+  --vt-slide-offset: 48px;
+  animation:
+    180ms var(--ease-exit) both vt-fade reverse,
+    420ms var(--ease-exit) both vt-slide reverse;
+}
+
+::view-transition-new(.nav-back) {
+  --vt-slide-offset: -48px;
+  animation:
+    300ms var(--ease-settle) 140ms both vt-fade,
+    700ms var(--ease-settle) 80ms both vt-slide;
+}
+
+/* Theme reveal: the new theme grows from the toggle as a circle. */
+html[data-theme-switching]::view-transition-old(root),
+html[data-theme-switching]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-theme-switching]::view-transition-new(root) {
+  z-index: 10;
+  animation: vt-theme-reveal 650ms var(--ease-inertia) both;
+}
+
+@keyframes vt-theme-reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0%));
+  }
+  to {
+    clip-path: circle(150vmax at var(--vt-x, 50%) var(--vt-y, 0%));
+  }
+}
+
+/* ==========================================================================
+   Reduced motion: keep content and a quick crossfade, remove all travel.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.nav-forward),
+  ::view-transition-old(.nav-back) {
+    animation: 150ms linear both vt-fade reverse;
+  }
+
+  ::view-transition-new(.nav-forward),
+  ::view-transition-new(.nav-back) {
+    animation: 150ms linear both vt-fade;
+  }
+
+  .theme-icon,
+  [data-theme="dark"] .theme-icon-sun,
+  .theme-icon-moon {
+    transform: none;
+    transition: opacity 0.2s linear;
+  }
 }

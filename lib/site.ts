@@ -1,0 +1,45 @@
+/**
+ * Single source for site-wide constants: identity, route order, contact links.
+ * Route order drives page-transition direction (later in the list = "forward").
+ */
+
+export const site = {
+  name: "Jhestin Digap",
+  role: "Frontend Developer",
+  title: "Jhestin Digap | Frontend Developer",
+  description:
+    "Portfolio of Jhestin Digap, a frontend-focused web developer building with Next.js, React and TypeScript.",
+  location: "Antipolo City, PH",
+  /** Static year: reading the clock in a Server Component breaks prerendering under cacheComponents. */
+  copyrightYear: 2026,
+} as const;
+
+export const nav = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/contact", label: "Contact" },
+] as const;
+
+export type NavHref = (typeof nav)[number]["href"];
+
+export const links = {
+  email: "djhestin@gmail.com",
+  linkedin: "https://www.linkedin.com/in/jhestin-digap-123462318",
+  github: "https://github.com/Jhesttt",
+  resume: "/resume/Jhestin-Digap-Resume.pdf",
+} as const;
+
+/** Browser UI tint. Mirrors the bg token in each theme (meta tags cannot read CSS variables). */
+export const themeColor = {
+  light: "#f4faf7",
+  dark: "#091413",
+} as const;
+
+export function routeIndex(pathname: string) {
+  const exact = nav.findIndex((item) => item.href === pathname);
+  if (exact !== -1) return exact;
+  return nav.findIndex(
+    (item) => item.href !== "/" && pathname.startsWith(`${item.href}/`),
+  );
+}

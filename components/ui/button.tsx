@@ -1,0 +1,74 @@
+import type { ReactNode } from "react";
+import { DirectionalLink } from "@/components/ui/directional-link";
+import { cn } from "@/lib/utils";
+
+const variants = {
+  primary:
+    "border border-brand-edge bg-brand text-on-brand shadow-soft hover:bg-brand-hover [&_.btn-icon]:bg-on-brand/15",
+  secondary:
+    "border border-line-strong text-fg hover:bg-surface-hover [&_.btn-icon]:bg-fg/10",
+  highlight:
+    "bg-highlight text-on-highlight hover:shadow-glow [&_.btn-icon]:bg-on-highlight/10",
+} as const;
+
+type ButtonProps = {
+  variant?: keyof typeof variants;
+  /** Trailing icon, nested in its own circle (button-in-button). */
+  icon?: ReactNode;
+  className?: string;
+  children: ReactNode;
+} & (
+  | { href: string; download?: boolean | string; external?: boolean; onClick?: never; type?: never }
+  | { href?: undefined; onClick?: () => void; type?: "button" | "submit"; download?: never; external?: never }
+);
+
+export function Button({ variant = "primary", icon, className, children, ...rest }: ButtonProps) {
+  const classes = cn(
+    "group inline-flex min-h-12 items-center gap-3 rounded-full py-1.5 text-small font-medium whitespace-nowrap",
+    "transition-[transform,background-color,box-shadow,border-color] duration-500 ease-inertia active:scale-[0.98]",
+    icon ? "pr-1.5 pl-6" : "px-6",
+    variants[variant],
+    className,
+  );
+
+  const content = (
+    <>
+      <span>{children}</span>
+      {icon && (
+        <span className="btn-icon grid size-9 place-items-center rounded-full transition-transform duration-500 ease-inertia group-hover:-translate-y-px group-hover:translate-x-0.5 group-hover:scale-105">
+          {icon}
+        </span>
+      )}
+    </>
+  );
+
+  if (rest.href === undefined) {
+    return (
+      <button type={rest.type ?? "button"} onClick={rest.onClick} className={classes}>
+        {content}
+      </button>
+    );
+  }
+
+  const { href, download, external } = rest;
+
+  // Downloads and external links must be plain anchors (next/link would intercept them).
+  if (download !== undefined || external || /^(https?:|mailto:)/.test(href)) {
+    return (
+      <a
+        href={href}
+        className={classes}
+        {...(download !== undefined ? { download: download === true ? "" : download } : {})}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <DirectionalLink href={href} className={classes}>
+      {content}
+    </DirectionalLink>
+  );
+}
