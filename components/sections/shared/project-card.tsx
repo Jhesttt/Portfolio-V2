@@ -2,20 +2,37 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import { IMAGE_QUALITY } from "@/lib/images";
 import type { Project } from "@/lib/data/projects";
+import { cn } from "@/lib/utils";
 
 /** Visible stack chips per card. Extra items collapse into "+N" so every card has the same footprint. */
-const MAX_TAGS = 4;
+const MAX_TAGS = { default: 4, compact: 3 } as const;
+
+const SIZES = {
+  default: "(min-width: 1280px) 600px, (min-width: 1024px) 50vw, 100vw",
+  compact: "(min-width: 1280px) 400px, (min-width: 768px) 33vw, 100vw",
+} as const;
 
 /**
  * Project card. Every card shares one image frame (the screenshots' native 1920:907 ratio), the same
  * padding and the same footer position (pushed to the bottom), so a grid of them lines up exactly.
  * The link is stretched over the whole card; hover only changes border, shadow and image scale.
+ * `compact` is for 3-column grids: tighter padding and a smaller title. Summaries are never truncated.
  */
-export function ProjectCard({ project, priority = false }: { project: Project; priority?: boolean }) {
+export function ProjectCard({
+  project,
+  priority = false,
+  size = "default",
+}: {
+  project: Project;
+  priority?: boolean;
+  size?: "default" | "compact";
+}) {
+  const compact = size === "compact";
   const { title, label, summary, image, stack, links } = project;
   const href = links.live ?? links.figma ?? links.github;
   const linkLabel = links.live ? "View live site" : links.figma ? "View on Figma" : "View on GitHub";
-  const shown = stack.slice(0, MAX_TAGS);
+  const max = MAX_TAGS[size];
+  const shown = stack.slice(0, max);
   const hidden = stack.length - shown.length;
 
   return (
@@ -28,15 +45,17 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
             alt={image.alt}
             fill
             priority={priority}
-            sizes="(min-width: 1280px) 600px, (min-width: 1024px) 50vw, 100vw"
+            sizes={SIZES[size]}
             className="object-cover object-top transition-transform duration-700 ease-settle group-hover:scale-[1.03]"
           />
         </div>
 
-        <div className="flex flex-1 flex-col p-6 sm:p-7">
+        <div className={cn("flex flex-1 flex-col", compact ? "p-5 sm:p-6" : "p-6 sm:p-7")}>
           <p className="text-small text-fg-subtle">{label}</p>
-          <h3 className="mt-1 font-display text-h3 font-semibold text-fg sm:text-[1.5rem]">{title}</h3>
-          <p className="mt-3 text-small text-fg-muted sm:text-body">{summary}</p>
+          <h3 className={cn("mt-1 font-display font-semibold text-fg", compact ? "text-h3" : "text-h3 sm:text-[1.5rem]")}>
+            {title}
+          </h3>
+          <p className={cn("mt-3 text-small text-fg-muted", compact ? undefined : "sm:text-body")}>{summary}</p>
 
           <ul aria-label={`${title} stack`} className="mt-5 flex flex-wrap gap-2">
             {shown.map((item) => (
@@ -47,7 +66,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
             {hidden > 0 && (
               <li className="rounded-full border border-line px-3 py-1 text-small text-fg-muted">
                 +{hidden}
-                <span className="sr-only"> more: {stack.slice(MAX_TAGS).join(", ")}</span>
+                <span className="sr-only"> more: {stack.slice(max).join(", ")}</span>
               </li>
             )}
           </ul>

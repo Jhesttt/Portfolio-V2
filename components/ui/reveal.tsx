@@ -2,7 +2,7 @@
 
 import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
-import { fadeUp, stagger, viewport } from "@/lib/motion";
+import { fadeUp, stagger, viewport, viewportGroup } from "@/lib/motion";
 
 type StaggerProps = {
   children: ReactNode;
@@ -18,7 +18,7 @@ type StaggerProps = {
  * the same variant names). Parent and children must share this client tree for variants to flow.
  */
 export function Stagger({ children, className, trigger = "view", gap = 0.08, delay = 0.1 }: StaggerProps) {
-  const play = trigger === "mount" ? { animate: "visible" } : { whileInView: "visible", viewport };
+  const play = trigger === "mount" ? { animate: "visible" } : { whileInView: "visible", viewport: viewportGroup };
   return (
     <motion.div variants={stagger(gap, delay)} initial="hidden" className={className} {...play}>
       {children}

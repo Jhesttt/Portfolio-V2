@@ -2,7 +2,7 @@ import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { DirectionalLink } from "@/components/ui/directional-link";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/reveal";
 import type { Project } from "@/lib/data/projects";
-import { ProjectCard } from "./project-card";
+import { ProjectCard } from "@/components/sections/shared/project-card";
 
 /**
  * Featured projects: section header with a "View Projects" link, then a grid of equal cards (2 columns from 1024px,

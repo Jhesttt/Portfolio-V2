@@ -1,15 +1,47 @@
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/layout/page-transition";
+import { FeaturedProject } from "@/components/sections/projects/featured-project";
+import { ProjectGroup } from "@/components/sections/projects/project-group";
+import { PageIntro } from "@/components/sections/shared/page-intro";
+import { designProjects, developmentProjects, practiceProjects, presyo } from "@/lib/data/projects";
 
-export const metadata: Metadata = { title: "Projects" };
+export const metadata: Metadata = {
+  title: "Projects",
+  description:
+    "Projects by Jhestin Digap: Presyo, a costing SaaS for Filipino sellers, plus web apps, UI/UX design work and practice projects.",
+};
 
-export default function Page() {
+export default function ProjectsPage() {
   return (
     <PageTransition>
-      <section className="mx-auto w-full max-w-7xl px-4 pt-36 pb-24 sm:px-6 lg:px-8">
-        <h1 className="text-h1 font-semibold text-fg">Projects</h1>
-        <p className="mt-4 max-w-prose text-fg-muted">Placeholder page. The Presyo feature and project grid arrive in Phase 4.</p>
-      </section>
+      <PageIntro id="projects-title" label="Projects" title="Things I've designed and built.">
+        A collection of my finest websites and designs, each crafted with dedication, creativity, and
+        utmost effort.
+      </PageIntro>
+
+      <FeaturedProject project={presyo} />
+
+      <ProjectGroup
+        id="development"
+        title="Web development"
+        description="Web apps and sites I built, from a campus booking system to tools for my classmates."
+        projects={developmentProjects}
+      />
+
+      <ProjectGroup
+        id="design"
+        title="UI/UX design"
+        description="Interfaces I designed in Figma for team projects."
+        projects={designProjects}
+      />
+
+      <ProjectGroup
+        id="practice"
+        title="Practice projects"
+        description="Frontend Mentor challenges, internship exercises and a course project that built my fundamentals."
+        projects={practiceProjects}
+        columns={3}
+      />
     </PageTransition>
   );
 }

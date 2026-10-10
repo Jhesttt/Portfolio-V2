@@ -1,15 +1,38 @@
+import { DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/layout/page-transition";
+import { ContactMethods } from "@/components/sections/contact/contact-methods";
+import { PageIntro } from "@/components/sections/shared/page-intro";
+import { Button } from "@/components/ui/button";
+import { contactPitch } from "@/lib/data/profile";
+import { links } from "@/lib/site";
 
-export const metadata: Metadata = { title: "Contact" };
+export const metadata: Metadata = {
+  title: "Contact",
+  description: "Get in touch with Jhestin Digap by email, LinkedIn or GitHub. Based in Antipolo City, PH.",
+};
 
-export default function Page() {
+export default function ContactPage() {
   return (
     <PageTransition>
-      <section className="mx-auto w-full max-w-7xl px-4 pt-36 pb-24 sm:px-6 lg:px-8">
-        <h1 className="text-h1 font-semibold text-fg">Contact</h1>
-        <p className="mt-4 max-w-prose text-fg-muted">Placeholder page. Contact methods arrive in Phase 4.</p>
-      </section>
+      <PageIntro
+        id="contact-title"
+        label="Contact"
+        title={contactPitch.title}
+        actions={
+          <Button
+            href={links.resume}
+            download="Jhestin-Digap-Resume.pdf"
+            variant="secondary"
+            icon={<DownloadSimple weight="light" size={18} />}
+          >
+            Download Resume
+          </Button>
+        }
+      >
+        {contactPitch.text}
+      </PageIntro>
+      <ContactMethods />
     </PageTransition>
   );
 }

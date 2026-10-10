@@ -57,6 +57,17 @@ export const viewport = {
   margin: "0px 0px -8% 0px",
 } as const;
 
+/**
+ * whileInView for staggered groups. Triggers as soon as the group's top edge is 12% into the viewport.
+ * A fraction-based amount is unsafe here: a long single-column list on a phone can be several screens
+ * tall, so "25% visible" would never be reached and its items would stay hidden.
+ */
+export const viewportGroup = {
+  once: true,
+  amount: "some",
+  margin: "0px 0px -12% 0px",
+} as const;
+
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: transition.enter },
