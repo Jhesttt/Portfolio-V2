@@ -11,7 +11,7 @@ import { links } from "@/lib/site";
  */
 export function ContactCta() {
   return (
-    <section aria-labelledby="contact-cta" className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
+    <section aria-labelledby="contact-cta" className="mx-auto w-full max-w-7xl px-4 pt-section sm:px-6 lg:px-8">
       <Reveal>
         <div className="rounded-card border border-glass-line bg-glass p-1.5 shadow-soft">
           <div className="rounded-core bg-surface/60 px-6 py-16 text-center inset-shadow-edge sm:px-12 lg:py-24">

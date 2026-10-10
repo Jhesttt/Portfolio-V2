@@ -12,7 +12,7 @@ import { socials } from "@/lib/site";
 export function OutsideOfCode() {
   const { title, text, video } = about.hobbies;
   return (
-    <section aria-labelledby="outside-of-code" className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <section aria-labelledby="outside-of-code" className="mx-auto w-full max-w-7xl px-4 pt-section sm:px-6 lg:px-8">
       <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-5">
           <h2 id="outside-of-code" className="text-h1 font-semibold text-fg">

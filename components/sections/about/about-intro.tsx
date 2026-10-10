@@ -1,5 +1,6 @@
 import { ArrowUpRight, DownloadSimple } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import { IMAGE_QUALITY } from "@/lib/images";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/glass-card";
 import { Stagger, StaggerItem } from "@/components/ui/reveal";
@@ -46,6 +47,7 @@ export function AboutIntro() {
           <GlassCard coreClassName="p-0">
             <div className="relative aspect-[4/5] overflow-hidden rounded-core">
               <Image
+                quality={IMAGE_QUALITY}
                 src={profile.portrait.src}
                 alt={profile.portrait.alt}
                 fill

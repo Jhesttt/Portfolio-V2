@@ -33,7 +33,7 @@ function StackList({ items, hidden }: { items: Item[]; hidden?: boolean }) {
  */
 export function WebStacks() {
   return (
-    <section aria-labelledby="web-stacks" className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-24">
+    <section aria-labelledby="web-stacks" className="mx-auto w-full max-w-7xl px-4 pt-section sm:px-6 lg:px-8">
       <div className="grid items-center gap-10 lg:grid-cols-12">
         <Reveal className="lg:col-span-4">
           <h2 id="web-stacks" className="text-h1 font-semibold text-fg">

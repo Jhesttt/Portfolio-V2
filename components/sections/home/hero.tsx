@@ -10,7 +10,7 @@ import { ProfileCard } from "./profile-card";
  * right. Stacks on mobile with the card under the CTAs. Simple staggered fade-up on load.
  *
  * Spacing rule for page intros: top padding clears the fixed nav (72px) by about the same amount as the
- * next section's top padding (py-20 / lg:py-28), and there is no bottom padding, so the space above and
+ * next section's top padding (pt-section), and there is no bottom padding, so the space above and
  * below the intro reads as equal.
  */
 export function Hero() {

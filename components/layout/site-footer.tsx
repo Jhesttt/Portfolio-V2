@@ -10,7 +10,7 @@ const socials = [
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-10 mt-24 border-t border-line">
+    <footer className="relative z-10 mt-section border-t border-line">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-12 sm:px-6 md:flex-row md:items-end md:justify-between lg:px-8">
         <div className="max-w-sm">
           <p className="font-display text-h3 font-semibold text-fg">{site.name}</p>

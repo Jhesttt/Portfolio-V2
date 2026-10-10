@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
+import { IMAGE_QUALITY } from "@/lib/images";
 import type { Project } from "@/lib/data/projects";
 
 /** Visible stack chips per card. Extra items collapse into "+N" so every card has the same footprint. */
@@ -22,6 +23,7 @@ export function ProjectCard({ project, priority = false }: { project: Project; p
       <div className="flex h-full flex-col overflow-hidden rounded-core bg-surface/60 inset-shadow-edge">
         <div className="relative aspect-[1920/907] overflow-hidden border-b border-line">
           <Image
+            quality={IMAGE_QUALITY}
             src={image.src}
             alt={image.alt}
             fill

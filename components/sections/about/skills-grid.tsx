@@ -16,7 +16,7 @@ const groupIcons: Record<SkillGroupId, Icon> = {
 /** Skills in the four groups from the brief. Equal cards: 2 columns from md, every row the same height. */
 export function SkillsGrid() {
   return (
-    <section aria-labelledby="skills" className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <section aria-labelledby="skills" className="mx-auto w-full max-w-7xl px-4 pt-section sm:px-6 lg:px-8">
       <SectionHeading id="skills" title="Skills" description="What I reach for at each layer of a product." />
 
       <Stagger className="mt-12 grid auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">

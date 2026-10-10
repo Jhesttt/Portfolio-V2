@@ -10,7 +10,7 @@ import { ProjectCard } from "./project-card";
  */
 export function FeaturedProjects({ projects }: { projects: Project[] }) {
   return (
-    <section aria-labelledby="featured-projects" className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <section aria-labelledby="featured-projects" className="mx-auto w-full max-w-7xl px-4 pt-section sm:px-6 lg:px-8">
       <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div>
           <h2 id="featured-projects" className="text-h1 font-semibold text-fg">

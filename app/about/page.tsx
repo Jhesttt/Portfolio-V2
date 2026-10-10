@@ -21,7 +21,7 @@ export default function AboutPage() {
 
       <section
         aria-labelledby="professional-history"
-        className="mx-auto w-full max-w-7xl overflow-x-clip px-4 py-20 sm:px-6 lg:px-8 lg:py-28"
+        className="mx-auto w-full max-w-7xl overflow-x-clip px-4 pt-section sm:px-6 lg:px-8"
       >
         <SectionHeading
           id="professional-history"

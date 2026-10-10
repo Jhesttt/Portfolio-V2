@@ -2,6 +2,7 @@
 
 import { Play } from "@phosphor-icons/react";
 import Image from "next/image";
+import { IMAGE_QUALITY } from "@/lib/images";
 import { useState } from "react";
 
 /**
@@ -30,7 +31,8 @@ export function YouTubeLite({ id, title }: { id: string; title: string }) {
           className="group absolute inset-0 size-full"
         >
           <Image
-            src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+            quality={IMAGE_QUALITY}
+            src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`}
             alt=""
             fill
             sizes="(min-width: 1024px) 40vw, 92vw"

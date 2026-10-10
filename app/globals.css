@@ -295,6 +295,25 @@
   backdrop-filter: blur(var(--glass-blur)) saturate(140%);
 }
 
+/*
+ * Vertical rhythm. Every section after a page intro gets ONLY this top spacing (no bottom padding),
+ * so the gap between any two sections is identical: 80px, 112px from 1024px. The footer uses the
+ * same value. Page intros clear the nav by about the same amount (pt-36 / lg:pt-44).
+ */
+@utility pt-section {
+  padding-top: 5rem;
+  @media (width >= 64rem) {
+    padding-top: 7rem;
+  }
+}
+
+@utility mt-section {
+  margin-top: 5rem;
+  @media (width >= 64rem) {
+    margin-top: 7rem;
+  }
+}
+
 /* Static colour field behind everything (see AmbientBackground). */
 @utility ambient {
   background-image:
