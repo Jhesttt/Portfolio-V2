@@ -35,6 +35,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: site.title, template: `%s | ${site.name}` },
   authors: [{ name: site.name, url: siteUrl }],
+  // Google Search Console ownership check for https://jhest.vercel.app.
+  verification: { google: "H1Xx_wOa5RK929zomTzj-rA97tzKlzo77tjXCW2xhYE" },
   creator: site.name,
 };
 

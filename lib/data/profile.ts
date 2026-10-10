@@ -19,7 +19,7 @@ export const profile = {
 export const about = {
   headline: "I enjoy bringing ideas to life through code.",
   bio: [
-    "I'm Jhestin Digap, a web developer from Antipolo City and a BS Computer Engineering graduate of the University of Rizal System. Years of photo editing gave me a feel for design principles, and that eye shapes every interface I build: clean, intuitive, and purposeful.",
+    "I'm Jhestin Digap, Jhest for short, a web developer from Antipolo City and a BS Computer Engineering graduate of the University of Rizal System. Years of photo editing gave me a feel for design principles, and that eye shapes every interface I build: clean, intuitive, and purposeful.",
     "Today I work as a Technical Solutions Engineer at Rival (formerly SilkRoad Technology), supporting Fortune 500 clients' eForms and portals on a legacy enterprise stack. Outside of work, I build my own products with modern stacks, like Presyo, a costing tool that helps Filipino small businesses understand their costs and price smarter.",
   ],
   hobbies: {

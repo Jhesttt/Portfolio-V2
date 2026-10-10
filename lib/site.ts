@@ -8,7 +8,7 @@ export const site = {
   role: "Web Developer",
   title: "Jhestin Digap | Web Developer",
   description:
-    "Jhestin Digap is a Web Developer from the Philippines specializing in modern web development, React, Next.js, JavaScript, and full-stack applications.",
+    "Jhestin Digap (Jhest) is a Web Developer from Antipolo City, Philippines, specializing in modern web development, React, Next.js, TypeScript, and full-stack applications.",
   location: "Antipolo City, PH",
   /** Static year: reading the clock in a Server Component breaks prerendering under cacheComponents. */
   copyrightYear: 2026,
