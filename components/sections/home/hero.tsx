@@ -24,8 +24,8 @@ export function Hero() {
           </StaggerItem>
           <StaggerItem>
             <h1 id="hero-title" className="mt-6 text-hero font-semibold text-fg">
-              I&apos;m Jhestin, a <span className="text-accent">Web Developer</span> with a designer&apos;s touch
-              from the Philippines.
+              I&apos;m Jhestin, a <span className="whitespace-nowrap text-accent">Web Developer</span> with a
+              designer&apos;s touch.
             </h1>
           </StaggerItem>
           <StaggerItem>

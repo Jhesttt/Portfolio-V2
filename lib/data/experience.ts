@@ -1,6 +1,6 @@
 /**
- * Professional history. Facts mirror CLAUDE.md section 5.2 exactly. Role, organization and
- * period are separate fields so the UI never needs a dash as a separator.
+ * Professional history. Facts mirror CLAUDE.md section 5.2 exactly (wording smoothed into sentences).
+ * Role, organization and period are separate fields so the UI never needs a dash as a separator.
  */
 
 export type Experience = {
@@ -20,10 +20,10 @@ export const experience: Experience[] = [
     org: "Rival (formerly SilkRoad Technology)",
     period: { start: "Oct 2025", end: "Present" },
     highlights: [
-      "Fortune 500 client eForms and portals.",
-      "200+ Jira tickets resolved.",
-      "Legacy ePrise system work in XML, jQuery and Bootstrap.",
-      "PDF output engineering fixes shared across the team.",
+      "Supports Fortune 500 clients' eForms and portals.",
+      "Resolved 200+ Jira tickets.",
+      "Works on the legacy ePrise system (XML, jQuery, Bootstrap).",
+      "PDF output engineering fixes, shared across the team.",
     ],
   },
   {
@@ -32,7 +32,7 @@ export const experience: Experience[] = [
     title: "Full-Stack Web Developer (OJT)",
     org: "AP Global IT Solutions Inc.",
     period: { start: "Jun", end: "Jul 2024" },
-    highlights: ["240+ hours.", "React and reusable components.", "Git workflows."],
+    highlights: ["240+ hours of on-the-job training.", "Built reusable React components.", "Worked within team Git workflows."],
   },
   {
     id: "urs",
@@ -47,4 +47,3 @@ export const experience: Experience[] = [
 export function formatPeriod({ start, end }: Experience["period"]) {
   return `${start} - ${end}`;
 }
-
