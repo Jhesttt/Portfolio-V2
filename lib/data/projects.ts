@@ -125,8 +125,8 @@ export const portfolioV1: Project = {
     "My first personal portfolio, with a hero introduction, a searchable project showcase, an About Me profile and a fully responsive layout, built with plain HTML, CSS and JavaScript.",
   image: {
     src: "/projects/portfolio-v1.png",
-    width: 2560,
-    height: 1280,
+    width: 2507,
+    height: 1183,
     alt: "Portfolio V1 promo: a browser window showing the old site's hero, I'm Jhestin, a Web Developer with a designer's touch from the Philippines, beside a list of its features.",
   },
   stack: ["HTML", "CSS", "JavaScript", "AOS"],
@@ -175,10 +175,10 @@ export const weatherSense: Project = {
   summary:
     "My part of a group project: the UI for a mobile app that reads temperature and humidity from a DHT11 sensor.",
   image: {
-    src: "/projects/weather.png",
-    width: 1895,
-    height: 907,
-    alt: "WeatherSense mobile screens: a temperature gauge at 28 degrees, the splash screen, and a humidity gauge at 40 percent.",
+    src: "/projects/weathersense.png",
+    width: 2560,
+    height: 1209,
+    alt: "WeatherSense promo: two phones showing the welcome screen with Tap to Continue and a dashboard with a 29 degree temperature gauge and a 58 percent humidity gauge.",
   },
   stack: ["Figma"],
   links: { figma: FIGMA_WEATHERSENSE },
