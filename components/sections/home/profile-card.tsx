@@ -41,7 +41,7 @@ function Fact({ icon: Glyph, label, children, sub }: { icon: Icon; label: string
 }
 
 /**
- * Hero side card: the quick facts a recruiter scans for (current role, startup, education, location)
+ * Hero side card: the quick facts a recruiter scans for (current role, latest project, education, location)
  * plus direct links. All values come from the shared data files, so they never drift from the rest of the site.
  */
 export function ProfileCard() {
@@ -61,7 +61,7 @@ export function ProfileCard() {
         <Fact icon={Briefcase} label="Currently" sub={work.org}>
           {work.title}
         </Fact>
-        <Fact icon={RocketLaunch} label="Building" sub={presyo.label}>
+        <Fact icon={RocketLaunch} label="Latest project" sub={presyo.label}>
           <a
             href={presyo.links.live}
             target="_blank"

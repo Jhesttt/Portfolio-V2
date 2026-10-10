@@ -3,8 +3,8 @@ import { PageTransition } from "@/components/layout/page-transition";
 import { AboutIntro } from "@/components/sections/about/about-intro";
 import { ExperienceTimeline } from "@/components/sections/about/experience-timeline";
 import { OutsideOfCode } from "@/components/sections/about/outside-of-code";
+import { Gallery } from "@/components/sections/about/gallery";
 import { SkillsGrid } from "@/components/sections/about/skills-grid";
-import { ContactCta } from "@/components/sections/shared/contact-cta";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { experience } from "@/lib/data/experience";
 
@@ -35,7 +35,7 @@ export default function AboutPage() {
 
       <SkillsGrid />
       <OutsideOfCode />
-      <ContactCta />
+      <Gallery />
     </PageTransition>
   );
 }

@@ -11,7 +11,7 @@ export function AboutIntro() {
   return (
     <section
       aria-labelledby="about-title"
-      className="mx-auto w-full max-w-7xl px-4 pt-32 pb-16 sm:px-6 md:pt-28 lg:px-8 lg:pb-24"
+      className="mx-auto w-full max-w-7xl px-4 pt-36 sm:px-6 lg:px-8 lg:pt-44"
     >
       <Stagger trigger="mount" gap={0.1} delay={0.05} className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-7">

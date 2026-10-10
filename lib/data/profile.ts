@@ -15,12 +15,12 @@ export const profile = {
   },
 } as const;
 
-/** About page. Built from the V1 bio, with the current role and startup from the brief. */
+/** About page. Built from the V1 bio and socials, with the current role and Presyo from the brief. */
 export const about = {
   headline: "I enjoy bringing ideas to life through code.",
   bio: [
     "I'm Jhestin Digap, a web developer from Antipolo City and a BS Computer Engineering graduate of the University of Rizal System. Years of photo editing gave me a feel for design principles, and that eye shapes every interface I build: clean, intuitive, and purposeful.",
-    "Today I work as a Technical Solutions Engineer at Rival (formerly SilkRoad Technology), supporting Fortune 500 clients' eForms and portals on a legacy enterprise stack. On the side, I'm building Presyo, a costing tool that helps Filipino small businesses understand their costs and price smarter.",
+    "Today I work as a Technical Solutions Engineer at Rival (formerly SilkRoad Technology), supporting Fortune 500 clients' eForms and portals on a legacy enterprise stack. Outside of work, I build my own products with modern stacks, like Presyo, a costing tool that helps Filipino small businesses understand their costs and price smarter.",
   ],
   hobbies: {
     title: "Outside of code",
@@ -31,6 +31,13 @@ export const about = {
     },
   },
 } as const;
+
+/** V1 gallery photos (square). img2 is only 320px wide, so the grid is kept small enough not to upscale it much. */
+export const gallery = [
+  { src: "/images/img1.webp", width: 1080, height: 1080, alt: "Jhestin in a white T-shirt and black face mask, standing among trees and bougainvillea." },
+  { src: "/images/img3.jpg", width: 960, height: 960, alt: "Jhestin smiling in a striped T-shirt in front of a garden fence." },
+  { src: "/images/img2.jpg", width: 320, height: 320, alt: "Mirror selfie of Jhestin in an olive button-up shirt." },
+] as const;
 
 export const contactPitch = {
   title: "Let's Create Something Amazing Together",

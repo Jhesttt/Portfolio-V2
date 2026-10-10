@@ -8,12 +8,16 @@ import { ProfileCard } from "./profile-card";
 /**
  * Split hero: text on the left (greeting, headline, pitch, CTAs), a quick-facts profile card on the
  * right. Stacks on mobile with the card under the CTAs. Simple staggered fade-up on load.
+ *
+ * Spacing rule for page intros: top padding clears the fixed nav (72px) by about the same amount as the
+ * next section's top padding (py-20 / lg:py-28), and there is no bottom padding, so the space above and
+ * below the intro reads as equal.
  */
 export function Hero() {
   return (
     <section
       aria-labelledby="hero-title"
-      className="mx-auto flex w-full max-w-7xl flex-col justify-center px-4 pt-32 pb-20 sm:px-6 md:pt-28 lg:min-h-[min(92dvh,54rem)] lg:px-8 lg:pb-24"
+      className="mx-auto w-full max-w-7xl px-4 pt-36 sm:px-6 lg:px-8 lg:pt-44"
     >
       <Stagger trigger="mount" gap={0.1} delay={0.05} className="grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7 xl:col-span-8">

@@ -1,7 +1,14 @@
 "use client";
 
 import { List, X } from "@phosphor-icons/react";
-import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  type AnimationPlaybackControls,
+} from "motion/react";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { BrandMark } from "@/components/ui/brand-mark";
@@ -41,19 +48,25 @@ export function SiteNav() {
   /*
    * Active marker: one element, always mounted, positioned with offsetLeft/offsetTop of the active link.
    * Those offsets are relative to the pill itself, so page scroll (Next scrolls to top on navigation)
-   * can never leak into the animation. A shared-layout (layoutId) marker measured in page coordinates
-   * and slid in from below when navigating from a scrolled page.
+   * can never leak into the animation.
+   *
+   * It only ANIMATES when the route changes. Every other reposition snaps: first paint, the web font
+   * swapping in (which changes link widths), breakpoint changes. A ResizeObserver on the pill and its
+   * links catches all of those, so a reload never shows the marker sliding from a stale position.
    */
   const markerX = useMotionValue(0);
   const markerY = useMotionValue(0);
   const markerW = useMotionValue(0);
   const markerH = useMotionValue(0);
   const markerOpacity = useMotionValue(0);
-  const placed = useRef(false);
+  const running = useRef<AnimationPlaybackControls[]>([]);
+  const lastPath = useRef<string | null>(null);
 
   const placeMarker = useCallback(
     (animated: boolean) => {
       const active = navRef.current?.querySelector<HTMLElement>('a[aria-current="page"]');
+      running.current.forEach((controls) => controls.stop());
+      running.current = [];
       // Hidden tabs (mobile) have no offsetParent: hide the marker instead of pointing at nothing.
       if (!active || active.offsetParent === null) {
         markerOpacity.set(0);
@@ -61,28 +74,31 @@ export function SiteNav() {
       }
       const target = [active.offsetLeft, active.offsetTop, active.offsetWidth, active.offsetHeight];
       const values = [markerX, markerY, markerW, markerH];
-      if (!animated || !placed.current || reduce) {
-        values.forEach((value, i) => value.set(target[i]));
+      if (animated) {
+        running.current = values.map((value, i) => animate(value, target[i], spring.snappy));
       } else {
-        values.forEach((value, i) => animate(value, target[i], spring.snappy));
+        values.forEach((value, i) => value.set(target[i]));
       }
       markerOpacity.set(1);
-      placed.current = true;
     },
-    [markerX, markerY, markerW, markerH, markerOpacity, reduce],
+    [markerX, markerY, markerW, markerH, markerOpacity],
   );
 
-  // Slide to the new active link on every route change.
+  // Route change: slide from the previous tab. First mount: snap into place.
   useLayoutEffect(() => {
-    placeMarker(true);
-  }, [pathname, placeMarker]);
+    const changed = lastPath.current !== null && lastPath.current !== pathname;
+    placeMarker(changed && !reduce);
+    lastPath.current = pathname;
+  }, [pathname, reduce, placeMarker]);
 
-  // Re-snap (no animation) when sizes change: viewport breakpoints and web fonts finishing loading.
+  // Size changes (font swap, breakpoints): snap, never animate.
   useEffect(() => {
-    const snap = () => placeMarker(false);
-    window.addEventListener("resize", snap);
-    document.fonts?.ready.then(snap);
-    return () => window.removeEventListener("resize", snap);
+    const nav = navRef.current;
+    if (!nav) return;
+    const observer = new ResizeObserver(() => placeMarker(false));
+    observer.observe(nav);
+    nav.querySelectorAll("a").forEach((link) => observer.observe(link));
+    return () => observer.disconnect();
   }, [placeMarker]);
 
   useEffect(() => {

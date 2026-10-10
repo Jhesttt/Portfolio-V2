@@ -14,9 +14,9 @@ const variants = {
 /**
  * How the trailing icon reacts on hover. The circle never moves; only the glyph inside it does.
  *  slide: the arrow leaves through the top-right and a fresh copy slides in from the bottom-left.
- *  down:  the glyph dips 2px (download icons).
+ *  none:  the icon stays still (download icons and anything that is not an arrow).
  */
-type IconMotion = "slide" | "down" | "none";
+type IconMotion = "slide" | "none";
 
 const iconBase = "grid place-items-center transition-transform duration-500 ease-inertia";
 
@@ -39,7 +39,7 @@ function TrailingIcon({ icon, motion }: { icon: ReactNode; motion: IconMotion })
           </span>
         </>
       ) : (
-        <span className={cn(iconBase, motion === "down" && "motion-safe:group-hover:translate-y-0.5")}>{icon}</span>
+        <span className={iconBase}>{icon}</span>
       )}
     </span>
   );
@@ -49,7 +49,7 @@ type ButtonProps = {
   variant?: keyof typeof variants;
   /** Trailing icon, nested in its own circle (button-in-button). */
   icon?: ReactNode;
-  /** Defaults to "down" for download links and "slide" otherwise. */
+  /** Defaults to "none" for download links and "slide" otherwise. */
   iconMotion?: IconMotion;
   className?: string;
   children: ReactNode;
@@ -79,7 +79,7 @@ export function buttonStyles({
 
 export function Button({ variant = "primary", icon, iconMotion, className, children, ...rest }: ButtonProps) {
   const classes = buttonStyles({ variant, withIcon: Boolean(icon), className });
-  const motion: IconMotion = iconMotion ?? (rest.download !== undefined ? "down" : "slide");
+  const motion: IconMotion = iconMotion ?? (rest.download !== undefined ? "none" : "slide");
 
   const content = (
     <>

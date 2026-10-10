@@ -30,6 +30,18 @@ export const links = {
   resume: "/resume/Jhestin-Digap-Resume.pdf",
 } as const;
 
+/** Every public profile, with the handle shown on the About page (from V1). */
+export const socials = [
+  { id: "github", label: "GitHub", handle: "@Jhesttt", href: links.github },
+  { id: "linkedin", label: "LinkedIn", handle: "Jhestin Digap", href: links.linkedin },
+  { id: "facebook", label: "Facebook", handle: "Jhestin Digap", href: "https://web.facebook.com/jhest.digap" },
+  { id: "instagram", label: "Instagram", handle: "@jhesttt", href: "https://www.instagram.com/jhesttt" },
+  { id: "youtube", label: "YouTube", handle: "@jhestt", href: "https://www.youtube.com/@jhestt" },
+  { id: "x", label: "X", handle: "@djhestin", href: "https://x.com/djhestin" },
+] as const;
+
+export type SocialId = (typeof socials)[number]["id"];
+
 /** Browser UI tint. Mirrors the bg token in each theme (meta tags cannot read CSS variables). */
 export const themeColor = {
   light: "#f4faf7",
