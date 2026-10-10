@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Stagger, StaggerItem } from "@/components/ui/reveal";
+import { IntroItem } from "@/components/ui/intro";
 
 /**
  * Text-only page intro (Projects, Contact): label pill, H1, one paragraph, optional actions.
@@ -20,26 +20,26 @@ export function PageIntro({
 }) {
   return (
     <section aria-labelledby={id} className="mx-auto w-full max-w-7xl px-4 pt-36 sm:px-6 lg:px-8 lg:pt-44">
-      <Stagger trigger="mount" gap={0.1} delay={0.05} className="max-w-3xl">
-        <StaggerItem>
+      <div className="max-w-3xl">
+        <IntroItem index={0}>
           <p className="inline-flex rounded-full border border-line bg-surface/50 px-3.5 py-1 text-small font-medium text-accent">
             {label}
           </p>
-        </StaggerItem>
-        <StaggerItem>
+        </IntroItem>
+        <IntroItem index={1}>
           <h1 id={id} className="mt-6 text-hero font-semibold text-fg">
             {title}
           </h1>
-        </StaggerItem>
-        <StaggerItem>
+        </IntroItem>
+        <IntroItem index={2}>
           <p className="mt-6 max-w-2xl text-body text-fg-muted sm:text-[1.0625rem]">{children}</p>
-        </StaggerItem>
+        </IntroItem>
         {actions && (
-          <StaggerItem>
+          <IntroItem index={3}>
             <div className="mt-10 flex flex-wrap gap-3">{actions}</div>
-          </StaggerItem>
+          </IntroItem>
         )}
-      </Stagger>
+      </div>
     </section>
   );
 }

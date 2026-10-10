@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { PageTransition } from "@/components/layout/page-transition";
 import { FeaturedProject } from "@/components/sections/projects/featured-project";
 import { ProjectGroup } from "@/components/sections/projects/project-group";
 import { PageIntro } from "@/components/sections/shared/page-intro";
 import { designProjects, developmentProjects, practiceProjects, presyo } from "@/lib/data/projects";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Projects",
   description:
     "Projects by Jhestin Digap: Presyo, a costing SaaS for Filipino sellers, plus web apps, UI/UX design work and practice projects.",
-};
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (

@@ -6,7 +6,8 @@ import { SiteNav } from "@/components/layout/site-nav";
 import { SkipLink } from "@/components/layout/skip-link";
 import { MotionProvider } from "@/components/providers/motion-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
-import { site, themeColor } from "@/lib/site";
+import { pageMetadata } from "@/lib/seo";
+import { site, siteUrl, themeColor } from "@/lib/site";
 import "./globals.css";
 
 // Display: Bricolage Grotesque with its optical-size and width axes. Body: Hanken Grotesk. Meta/code: JetBrains Mono.
@@ -30,8 +31,11 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  ...pageMetadata({ description: site.description, path: "/" }),
+  metadataBase: new URL(siteUrl),
   title: { default: site.title, template: `%s | ${site.name}` },
-  description: site.description,
+  authors: [{ name: site.name, url: siteUrl }],
+  creator: site.name,
 };
 
 export const viewport: Viewport = {

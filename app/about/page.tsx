@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { PageTransition } from "@/components/layout/page-transition";
 import { AboutIntro } from "@/components/sections/about/about-intro";
 import { ExperienceTimeline } from "@/components/sections/about/experience-timeline";
@@ -8,11 +9,12 @@ import { SkillsGrid } from "@/components/sections/about/skills-grid";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { experience } from "@/lib/data/experience";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
     "About Jhestin Digap: web developer from Antipolo City, Technical Solutions Engineer at Rival, and BS Computer Engineering graduate of the University of Rizal System.",
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

@@ -27,15 +27,17 @@ const socials = [
 
 function Fact({ icon: Glyph, label, children, sub }: { icon: Icon; label: string; children: ReactNode; sub?: string }) {
   return (
-    <div className="flex gap-3.5">
-      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-chip text-accent">
-        <Glyph weight="light" size={18} />
-      </span>
-      <div className="min-w-0">
-        <dt className="text-small text-fg-subtle">{label}</dt>
-        <dd className="text-small font-medium text-fg">{children}</dd>
-        {sub && <dd className="text-small text-fg-muted">{sub}</dd>}
-      </div>
+    // A dl group may only hold dt/dd, so the icon lives inside the dt (decorative) and is positioned
+    // against the group's left padding.
+    <div className="relative min-w-0 pl-[3.125rem]">
+      <dt className="text-small text-fg-subtle">
+        <span aria-hidden className="absolute top-0 left-0 grid size-9 place-items-center rounded-full bg-chip text-accent">
+          <Glyph weight="light" size={18} />
+        </span>
+        {label}
+      </dt>
+      <dd className="text-small font-medium text-fg">{children}</dd>
+      {sub && <dd className="text-small text-fg-muted">{sub}</dd>}
     </div>
   );
 }

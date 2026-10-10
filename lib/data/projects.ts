@@ -128,7 +128,8 @@ export const portfolioV1: Project = {
   summary:
     "My first personal portfolio, with a hero introduction, a searchable project showcase, an About Me profile and a fully responsive layout, built with plain HTML, CSS and JavaScript.",
   image: {
-    src: "/projects/portfolio-v1.png",
+    // Renamed when the image was replaced: next/image caches resized copies by URL, so a new file must get a new name.
+    src: "/projects/portfolio-v1-promo.png",
     width: 2507,
     height: 1183,
     alt: "Portfolio V1 promo: a browser window showing the old site's hero, I'm Jhestin, a Web Developer with a designer's touch from the Philippines, beside a list of its features.",

@@ -2,7 +2,7 @@ import { ArrowUpRight, Check } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { GlassCard } from "@/components/ui/glass-card";
-import { Reveal } from "@/components/ui/reveal";
+import { IntroItem } from "@/components/ui/intro";
 import { IMAGE_QUALITY } from "@/lib/images";
 import type { Project } from "@/lib/data/projects";
 
@@ -15,7 +15,7 @@ export function FeaturedProject({ project }: { project: Project }) {
   const { title, label, summary, image, stack, links, details } = project;
   return (
     <section aria-labelledby="featured-project" className="mx-auto w-full max-w-7xl px-4 pt-section sm:px-6 lg:px-8">
-      <Reveal>
+      <IntroItem index={3}>
         <GlassCard blur coreClassName="overflow-hidden">
           <div className="relative aspect-[1920/907] border-b border-line">
             <Image
@@ -70,7 +70,7 @@ export function FeaturedProject({ project }: { project: Project }) {
             </div>
           </div>
         </GlassCard>
-      </Reveal>
+      </IntroItem>
     </section>
   );
 }

@@ -477,6 +477,61 @@ html[data-theme-switching]::view-transition-new(root) {
 }
 
 /* ==========================================================================
+   Intro entrance (IntroItem, nav). CSS so it runs on first paint, before hydration.
+   Starts at 1% opacity, not 0: Chrome ignores paints at opacity 0 for First and Largest Contentful
+   Paint, and a CSS fade does not produce a new paint record, so a 0 start loses both metrics.
+   ========================================================================== */
+
+@keyframes intro-rise {
+  from {
+    opacity: 0.01;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes intro-drop {
+  from {
+    opacity: 0.01;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes intro-fade {
+  from {
+    opacity: 0.01;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.intro-item {
+  animation: intro-rise 0.7s var(--ease-settle) both;
+  animation-delay: calc(var(--i, 0) * 80ms + 40ms);
+}
+
+.intro-nav {
+  animation: intro-drop 0.7s var(--ease-settle) both;
+}
+
+/* Reduced motion: keep the fade, drop the travel (matches MotionConfig reducedMotion="user"). */
+@media (prefers-reduced-motion: reduce) {
+  .intro-item,
+  .intro-nav {
+    animation-name: intro-fade;
+    animation-duration: 0.4s;
+  }
+}
+
+/* ==========================================================================
    Marquee (web stacks). Constant speed is the point, so linear is correct here.
    Two identical lists sit in one track; moving by -50% loops seamlessly.
    Paused on hover and keyboard focus. Reduced motion: static, wrapped, one copy.

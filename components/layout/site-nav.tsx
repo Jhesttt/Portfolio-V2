@@ -14,7 +14,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 import { BrandMark } from "@/components/ui/brand-mark";
 import { DirectionalLink } from "@/components/ui/directional-link";
 import { cn } from "@/lib/utils";
-import { fadeDown, menu, spring } from "@/lib/motion";
+import { menu, spring } from "@/lib/motion";
 import { nav } from "@/lib/site";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -143,13 +143,10 @@ export function SiteNav() {
       ref={headerRef}
       className="pointer-events-none fixed inset-x-0 top-4 z-40 flex justify-center px-4"
     >
-      <motion.nav
+      <nav
         ref={navRef}
         aria-label="Primary"
-        variants={fadeDown}
-        initial="hidden"
-        animate="visible"
-        className="site-header glass glass-blur pointer-events-auto relative z-40 flex h-14 w-full max-w-fit items-center gap-1 rounded-full p-1.5 pr-2 max-md:justify-between md:gap-2"
+        className="intro-nav site-header glass glass-blur pointer-events-auto relative z-40 flex h-14 w-full max-w-fit items-center gap-1 rounded-full p-1.5 pr-2 max-md:justify-between md:gap-2"
       >
         <motion.span
           aria-hidden
@@ -203,7 +200,7 @@ export function SiteNav() {
             {open ? <X weight="light" size={22} /> : <List weight="light" size={22} />}
           </button>
         </div>
-      </motion.nav>
+      </nav>
 
       <AnimatePresence>
         {open && (

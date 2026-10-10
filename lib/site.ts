@@ -14,10 +14,21 @@ export const site = {
   copyrightYear: 2026,
 } as const;
 
+/** Public production address. Canonical URLs, the sitemap and share images all point here. */
+export const productionUrl = "https://jhest.vercel.app";
+
+/**
+ * Absolute origin for metadata. NEXT_PUBLIC_SITE_URL wins (set it if a custom domain is added). Every Vercel
+ * build (production and previews) uses the production address, so previews never get indexed as canonical.
+ */
+export const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL ? productionUrl : "http://localhost:3000");
+
+/** Projects comes first: it is what most visitors came to see. Contact closes the list. */
 export const nav = [
   { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
   { href: "/projects", label: "Projects" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;
 

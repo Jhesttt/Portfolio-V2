@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+﻿# Jhestin Digap â€” Portfolio V2
 
-## Getting Started
+Personal portfolio of Jhestin Digap, web developer. Home, About, Projects and Contact, with light and dark
+themes, page transitions and scroll-driven motion.
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router, Cache Components) Â· TypeScript Â· Tailwind CSS v4 Â· Motion Â· next-themes Â·
+deployed on Vercel.
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run lint     # colour guard (no pure black/white) + ESLint
+npm run build    # production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | Where |
+| --- | --- |
+| Projects (all cards, featured order on Home) | `lib/data/projects.ts` (`featuredSlugs`) |
+| Profile copy, bio, gallery | `lib/data/profile.ts` |
+| Work history timeline | `lib/data/experience.ts` |
+| Skills and tech stack | `lib/data/skills.ts` |
+| Name, nav order, email, socials, site URL | `lib/site.ts` |
+| Design tokens (colours, type, radii, easings) | `app/globals.css` |
+| Motion presets | `lib/motion.ts` |
+| Images | `public/projects/` (screenshots), `public/images/` (photos, icons) |
+| Resume | `public/resume/Jhestin-Digap-Resume.pdf` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Project screenshots are shown in a 1920 Ã— 907 frame; use that shape for new thumbnails.
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+Pushing to `main` deploys on Vercel: https://jhest.vercel.app. Canonical URLs, the sitemap and share
+images point there (`productionUrl` in `lib/site.ts`). For a custom domain, set `NEXT_PUBLIC_SITE_URL` in the
+Vercel project settings and redeploy.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+When replacing an image, give the new file a new name. `next/image` caches resized copies by URL, so a
+replaced file with the same name can keep showing the old picture.

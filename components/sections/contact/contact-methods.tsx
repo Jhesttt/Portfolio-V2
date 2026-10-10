@@ -2,7 +2,7 @@ import { ArrowUpRight, EnvelopeSimple, MapPin } from "@phosphor-icons/react/dist
 import type { ReactNode } from "react";
 import { GlassCard } from "@/components/ui/glass-card";
 import { CopyEmailButton } from "@/components/ui/copy-email-button";
-import { Stagger, StaggerItem } from "@/components/ui/reveal";
+import { IntroItem } from "@/components/ui/intro";
 import { SocialIcon } from "@/components/ui/social-icon";
 import { links, socials, type SocialId } from "@/lib/site";
 
@@ -63,8 +63,8 @@ export function ContactMethods() {
         Ways to reach me
       </h2>
 
-      <Stagger trigger="mount" delay={0.35} className="grid auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
-        <StaggerItem className="h-full">
+      <div className="grid auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+        <IntroItem index={4} className="h-full">
           <MethodCard icon={<EnvelopeSimple weight="light" size={22} />} label="Email" value={links.email}>
             <div className="flex flex-wrap gap-3">
               <CopyEmailButton email={links.email} label="Copy email" variant="primary" />
@@ -76,33 +76,33 @@ export function ContactMethods() {
               </a>
             </div>
           </MethodCard>
-        </StaggerItem>
+        </IntroItem>
 
-        <StaggerItem className="h-full">
+        <IntroItem index={5} className="h-full">
           <MethodCard icon={<MapPin weight="light" size={22} />} label="Based in" value="Antipolo City, Rizal, Philippines">
             <p className="text-small text-fg-muted">Philippine Time (UTC+8)</p>
           </MethodCard>
-        </StaggerItem>
+        </IntroItem>
 
-        <StaggerItem className="h-full">
+        <IntroItem index={6} className="h-full">
           <MethodCard icon={<SocialIcon id="linkedin" size={22} />} label="LinkedIn" value={linkedin.handle}>
             <ProfileLink href={linkedin.href} label="View profile" />
           </MethodCard>
-        </StaggerItem>
+        </IntroItem>
 
-        <StaggerItem className="h-full">
+        <IntroItem index={7} className="h-full">
           <MethodCard icon={<SocialIcon id="github" size={22} />} label="GitHub" value={github.handle}>
             <ProfileLink href={github.href} label="View repositories" />
           </MethodCard>
-        </StaggerItem>
-      </Stagger>
+        </IntroItem>
+      </div>
 
-      <Stagger trigger="mount" delay={0.7} className="mt-10 flex flex-wrap items-center gap-3">
-        <StaggerItem>
+      <div className="mt-10 flex flex-wrap items-center gap-3">
+        <IntroItem index={8}>
           <p className="mr-2 text-small text-fg-muted">Also on</p>
-        </StaggerItem>
-        {others.map((s) => (
-          <StaggerItem key={s.id}>
+        </IntroItem>
+        {others.map((s, i) => (
+          <IntroItem index={9 + i} key={s.id}>
             <a
               href={s.href}
               target="_blank"
@@ -115,9 +115,9 @@ export function ContactMethods() {
               {s.label}
               <span className="text-fg-muted">{s.handle}</span>
             </a>
-          </StaggerItem>
+          </IntroItem>
         ))}
-      </Stagger>
+      </div>
     </section>
   );
 }
