@@ -24,7 +24,7 @@ export default function ProjectsPage() {
       <ProjectGroup
         id="development"
         title="Web development"
-        description="Web apps and sites I built, from a campus booking system to tools for my classmates."
+        description="Web apps and sites I built, from client work to a campus booking system."
         projects={developmentProjects}
       />
 
@@ -38,7 +38,7 @@ export default function ProjectsPage() {
       <ProjectGroup
         id="practice"
         title="Practice projects"
-        description="Frontend Mentor challenges, internship exercises and a course project that built my fundamentals."
+        description="College projects, Frontend Mentor challenges, internship exercises and a course project that built my fundamentals."
         projects={practiceProjects}
         columns={3}
       />

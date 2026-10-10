@@ -19,8 +19,10 @@ export type Project = {
   details?: string[];
 };
 
-/** V1 linked both UI-design projects to this one Figma file. */
-const FIGMA_FILE = "https://www.figma.com/design/nXVgXy8TRkn4jZVsUUtGlu/Untitled?node-id=0-1&t=UvM9WCoUYbbSEjPJ-1";
+/** RDCHIME Figma file (from V1). */
+const FIGMA_RDCHIME = "https://www.figma.com/design/nXVgXy8TRkn4jZVsUUtGlu/Untitled?node-id=0-1&t=UvM9WCoUYbbSEjPJ-1";
+const FIGMA_WEATHERSENSE =
+  "https://www.figma.com/design/PPUFaUwr4JDks9rv6tnOmt/Weather-Mobile-App?node-id=0-1&t=eYQAQMqk3c63S1Qb-1";
 
 export const presyo: Project = {
   slug: "presyo",
@@ -65,7 +67,7 @@ export const dotnote: Project = {
 export const anemolab: Project = {
   slug: "anemolab",
   title: "AnemoLab",
-  category: "development",
+  category: "practice",
   label: "College project",
   summary:
     "Built in my 2nd year of college. Features the Anemo characters from Genshin Impact, showcasing my early passion for web development.",
@@ -96,10 +98,45 @@ export const ursEvents: Project = {
   links: { live: "https://ursevents.vercel.app/" },
 };
 
+export const sanjo: Project = {
+  slug: "sanjo",
+  title: "Sanjo",
+  category: "development",
+  label: "Client project",
+  summary:
+    "A portfolio for a photographer, videographer and editor: a filterable photo gallery with a lightbox, films that play without leaving the page, and a toolkit section, in light and dark themes.",
+  image: {
+    // Temporary thumbnail: a screenshot of the live home page. Replace when a designed mockup exists.
+    src: "/projects/sanjo.png",
+    width: 1920,
+    height: 907,
+    alt: "Sanjo portfolio home page with the headline Seen, shot, and cut., a short intro, and View photography and Watch films buttons.",
+  },
+  stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion", "React Router"],
+  links: { live: "https://shotbysanjo.vercel.app/" },
+};
+
+export const portfolioV1: Project = {
+  slug: "portfolio-v1",
+  title: "Portfolio V1",
+  category: "development",
+  label: "Personal project",
+  summary:
+    "My first personal portfolio, with a hero introduction, a searchable project showcase, an About Me profile and a fully responsive layout, built with plain HTML, CSS and JavaScript.",
+  image: {
+    src: "/projects/portfolio-v1.png",
+    width: 2560,
+    height: 1280,
+    alt: "Portfolio V1 promo: a browser window showing the old site's hero, I'm Jhestin, a Web Developer with a designer's touch from the Philippines, beside a list of its features.",
+  },
+  stack: ["HTML", "CSS", "JavaScript", "AOS"],
+  links: { live: "https://jhestin.vercel.app/" },
+};
+
 export const gwaCalculator: Project = {
   slug: "gwa-calculator",
   title: "GWA Calculator",
-  category: "development",
+  category: "practice",
   label: "Built for my classmates",
   summary:
     "Wanting to help my classmates who struggled to compute their GWA, I made a web app that lets them calculate it more easily.",
@@ -127,7 +164,7 @@ export const rdchimeInventory: Project = {
     alt: "RDCHIME Inventory System screens: item management table, history log, create-item and user management dialogs.",
   },
   stack: ["Figma"],
-  links: { figma: FIGMA_FILE },
+  links: { figma: FIGMA_RDCHIME },
 };
 
 export const weatherSense: Project = {
@@ -144,7 +181,7 @@ export const weatherSense: Project = {
     alt: "WeatherSense mobile screens: a temperature gauge at 28 degrees, the splash screen, and a humidity gauge at 40 percent.",
   },
   stack: ["Figma"],
-  links: { figma: FIGMA_FILE },
+  links: { figma: FIGMA_WEATHERSENSE },
 };
 
 /* Practice projects: Frontend Mentor challenges, internship exercises and a course project (V1 copy). */
@@ -304,12 +341,17 @@ export const counter: Project = {
 
 export const allProjects: Project[] = [
   presyo,
-  ursEvents,
+  // Web development, in display order
+  sanjo,
   dotnote,
-  anemolab,
-  gwaCalculator,
+  portfolioV1,
+  ursEvents,
+  // UI/UX design
   rdchimeInventory,
   weatherSense,
+  // Practice
+  anemolab,
+  gwaCalculator,
   newsHomepage,
   fyloLanding,
   testimonials,

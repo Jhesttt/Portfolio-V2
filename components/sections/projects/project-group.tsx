@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 /**
  * A titled group of equal project cards.
  *  columns 2: same grid as Home (2 columns from 1024px, 1 below).
- *  columns 3: compact cards, 3 columns from 768px (so a group of 9 fills a clean 3x3, no orphan card).
+ *  columns 3: compact cards, 3 columns from 768px.
  */
 export function ProjectGroup({
   id,
