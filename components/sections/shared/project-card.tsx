@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { ArrowUpRight, CloudSlash } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import { IMAGE_QUALITY } from "@/lib/images";
 import type { Project } from "@/lib/data/projects";
@@ -28,7 +28,7 @@ export function ProjectCard({
   size?: "default" | "compact";
 }) {
   const compact = size === "compact";
-  const { title, label, summary, image, stack, links } = project;
+  const { title, label, summary, image, stack, links, offline } = project;
   const href = links.live ?? links.figma ?? links.github;
   const linkLabel = links.live ? "View live site" : links.figma ? "View on Figma" : "View on GitHub";
   const max = MAX_TAGS[size];
@@ -88,6 +88,13 @@ export function ProjectCard({
                 />
               </a>
             </div>
+          )}
+
+          {!href && offline && (
+            <p className="mt-auto flex items-center gap-2 pt-6 text-small text-fg-subtle">
+              <CloudSlash weight="light" size={16} aria-hidden />
+              {offline}
+            </p>
           )}
         </div>
       </div>

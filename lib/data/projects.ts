@@ -17,6 +17,8 @@ export type Project = {
   links: { live?: string; figma?: string; github?: string };
   /** Production-engineering details, shown on the Projects page feature. */
   details?: string[];
+  /** Set when the project is no longer online: replaces the link with this short, muted note. */
+  offline?: string;
 };
 
 /** RDCHIME Figma file (from V1). */
@@ -95,7 +97,9 @@ export const ursEvents: Project = {
     alt: "URS Event Booking System pages showing the campus calendar and event booking form.",
   },
   stack: ["React", "Node.js", "Express.js", "MySQL", "JavaScript", "HTML", "CSS"],
-  links: { live: "https://ursevents.vercel.app/" },
+  // The university stopped funding the hosting, so the live site is down.
+  links: {},
+  offline: "No longer online",
 };
 
 export const sanjo: Project = {
@@ -349,22 +353,22 @@ export const allProjects: Project[] = [
   // UI/UX design
   rdchimeInventory,
   weatherSense,
-  // Practice
-  anemolab,
-  gwaCalculator,
-  newsHomepage,
-  fyloLanding,
-  testimonials,
-  ageCalculator,
-  accordion,
-  diceRoll,
-  charactersFilter,
-  tabs,
-  counter,
+  // Practice, most complex first: framework apps, multi-section sites, logic-heavy tools, then single components
+  newsHomepage, // Next.js + React components
+  fyloLanding, // React landing page
+  anemolab, // multi-section site with Materialize
+  gwaCalculator, // multi-subject grade computation
+  ageCalculator, // date math with input validation
+  charactersFilter, // data-driven filtering with array methods
+  diceRoll, // 2-player game logic, custom Figma assets
+  testimonials, // next / previous / shuffle carousel
+  accordion, // accordion with slideshow background
+  tabs, // single tab component
+  counter, // increment / decrement
 ];
 
 /** The four projects shown on Home, in order. Change these slugs to swap them. */
-export const featuredSlugs = ["presyo", "dotnote", "anemolab", "urs-event-booking"] as const;
+export const featuredSlugs = ["presyo", "dotnote", "sanjo", "portfolio-v1"] as const;
 
 const bySlug = (slug: string) => allProjects.find((p) => p.slug === slug);
 
