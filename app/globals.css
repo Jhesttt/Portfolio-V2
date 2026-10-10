@@ -12,9 +12,6 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* Desktop-only motion layouts (pinned horizontal gallery). Mirrors PIN_QUERY in featured-projects.tsx. */
-@custom-variant pinned (@media (min-width: 64rem) and (prefers-reduced-motion: no-preference));
-
 @theme static {
   --color-*: initial;
   --shadow-*: initial;
@@ -476,7 +473,11 @@ html[data-theme-switching]::view-transition-new(root) {
 }
 
 .marquee-track {
-  animation: marquee-scroll var(--marquee-duration, 70s) linear infinite;
+  animation: marquee-scroll var(--marquee-duration, 60s) linear infinite;
+}
+
+.marquee-track[data-direction="reverse"] {
+  animation-direction: reverse;
 }
 
 .marquee:hover .marquee-track,

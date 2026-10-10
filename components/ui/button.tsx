@@ -22,14 +22,27 @@ type ButtonProps = {
   | { href?: undefined; onClick?: () => void; type?: "button" | "submit"; download?: never; external?: never }
 );
 
-export function Button({ variant = "primary", icon, className, children, ...rest }: ButtonProps) {
-  const classes = cn(
+/** Shared pill-button classes. Exported so client components (e.g. CopyEmailButton) match exactly. */
+export function buttonStyles({
+  variant = "primary",
+  withIcon = false,
+  className,
+}: {
+  variant?: keyof typeof variants;
+  withIcon?: boolean;
+  className?: string;
+}) {
+  return cn(
     "group inline-flex min-h-12 items-center gap-3 rounded-full py-1.5 text-small font-medium whitespace-nowrap",
     "transition-[transform,background-color,box-shadow,border-color] duration-500 ease-inertia active:scale-[0.98]",
-    icon ? "pr-1.5 pl-6" : "px-6",
+    withIcon ? "pr-1.5 pl-6" : "px-6",
     variants[variant],
     className,
   );
+}
+
+export function Button({ variant = "primary", icon, className, children, ...rest }: ButtonProps) {
+  const classes = buttonStyles({ variant, withIcon: Boolean(icon), className });
 
   const content = (
     <>

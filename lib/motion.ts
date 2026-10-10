@@ -138,8 +138,3 @@ export const menu = {
   } satisfies Variants,
 };
 
-/** One word of a headline rising out of a clipped line. Parent uses stagger(). */
-export const wordUp: Variants = {
-  hidden: { y: "110%", opacity: 0 },
-  visible: { y: "0%", opacity: 1, transition: { duration: duration.slow, ease: ease.settle } },
-};

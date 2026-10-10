@@ -1,36 +1,32 @@
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
-import { BrandMark } from "@/components/ui/brand-mark";
 import { Button } from "@/components/ui/button";
-import { GlassCard } from "@/components/ui/glass-card";
+import { CopyEmailButton } from "@/components/ui/copy-email-button";
 import { Reveal } from "@/components/ui/reveal";
 import { contactPitch } from "@/lib/data/profile";
 import { links } from "@/lib/site";
 
-/** Closing call to action: a large forest panel with the JD mark as a watermark. Copy is from V1. */
+/**
+ * Closing call to action: one centred glass panel with a heading, one line of copy and two actions.
+ * No decorative layers, so nothing can overlap the content at any width.
+ */
 export function ContactCta() {
   return (
     <section aria-labelledby="contact-cta" className="mx-auto w-full max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
       <Reveal>
-        <GlassCard tone="brand" coreClassName="relative overflow-hidden p-8 text-on-brand sm:p-12 lg:p-20">
-          <BrandMark className="pointer-events-none absolute -right-12 -bottom-20 size-[24rem] text-on-brand/8 lg:size-[30rem]" />
-          <div className="relative max-w-3xl">
-            <h2 id="contact-cta" className="text-h1 font-semibold">
+        <div className="rounded-card border border-glass-line bg-glass p-1.5 shadow-soft">
+          <div className="rounded-core bg-surface/60 px-6 py-16 text-center inset-shadow-edge sm:px-12 lg:py-24">
+            <h2 id="contact-cta" className="mx-auto max-w-2xl text-h1 font-semibold text-fg">
               {contactPitch.title}
             </h2>
-            <p className="mt-5 max-w-xl text-body text-on-brand/85">{contactPitch.text}</p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5">
-              <Button href="/contact" variant="highlight" icon={<ArrowUpRight weight="light" size={18} />}>
+            <p className="mx-auto mt-5 max-w-xl text-fg-muted">{contactPitch.text}</p>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Button href="/contact" icon={<ArrowUpRight weight="light" size={18} />}>
                 Contact
               </Button>
-              <a
-                href={`mailto:${links.email}`}
-                className="text-small font-medium text-on-brand underline decoration-on-brand/40 underline-offset-4 transition-colors duration-300 hover:decoration-on-brand"
-              >
-                {links.email}
-              </a>
+              <CopyEmailButton email={links.email} />
             </div>
           </div>
-        </GlassCard>
+        </div>
       </Reveal>
     </section>
   );

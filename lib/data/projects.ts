@@ -56,9 +56,9 @@ export const dotnote: Project = {
 export const anemolab: Project = {
   slug: "anemolab",
   title: "AnemoLab",
-  label: "Built in my 2nd year of college",
+  label: "College project",
   summary:
-    "Features the Anemo characters from Genshin Impact, showcasing my early passion and skill in web development.",
+    "Built in my 2nd year of college. Features the Anemo characters from Genshin Impact, showcasing my early passion for web development.",
   image: {
     src: "/projects/anemolab.png",
     width: 1895,
@@ -69,11 +69,27 @@ export const anemolab: Project = {
   links: { live: "https://jhesttt.github.io/AnemoLab/" },
 };
 
-/** Phase 4 adds the rest of the shortlist here. */
-export const allProjects: Project[] = [presyo, dotnote, anemolab];
+export const ursEvents: Project = {
+  slug: "urs-event-booking",
+  title: "URS Event Booking System",
+  label: "University of Rizal System",
+  summary:
+    "Led the development of our campus's official event booking system, enabling event reservations for student councils with conflict-free scheduling. Deployed using Vercel, Render, and Railway.",
+  image: {
+    src: "/projects/ursacevents.png",
+    width: 1920,
+    height: 907,
+    alt: "URS Event Booking System pages showing the campus calendar and event booking form.",
+  },
+  stack: ["React", "Node.js", "Express.js", "MySQL", "JavaScript", "HTML", "CSS"],
+  links: { live: "https://ursevents.vercel.app/" },
+};
 
-/** The three projects shown on Home, in order. Change these slugs to swap them. */
-export const featuredSlugs = ["presyo", "dotnote", "anemolab"] as const;
+/** Phase 4 adds the rest of the shortlist here. */
+export const allProjects: Project[] = [presyo, dotnote, anemolab, ursEvents];
+
+/** The four projects shown on Home, in order. Change these slugs to swap them. */
+export const featuredSlugs = ["presyo", "dotnote", "anemolab", "urs-event-booking"] as const;
 
 export const featuredProjects: Project[] = featuredSlugs
   .map((slug) => allProjects.find((p) => p.slug === slug))
