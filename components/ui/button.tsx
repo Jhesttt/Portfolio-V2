@@ -35,7 +35,7 @@ export function Button({ variant = "primary", icon, className, children, ...rest
     <>
       <span>{children}</span>
       {icon && (
-        <span className="btn-icon grid size-9 place-items-center rounded-full transition-transform duration-500 ease-inertia group-hover:-translate-y-px group-hover:translate-x-0.5 group-hover:scale-105">
+        <span className="btn-icon grid size-9 place-items-center rounded-full transition-transform duration-500 ease-inertia group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
           {icon}
         </span>
       )}

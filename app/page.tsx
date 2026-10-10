@@ -1,12 +1,17 @@
 import { PageTransition } from "@/components/layout/page-transition";
-import { BentoGrid } from "@/components/sections/home/bento-grid";
+import { ContactCta } from "@/components/sections/home/contact-cta";
+import { FeaturedProjects } from "@/components/sections/home/featured-projects";
 import { Hero } from "@/components/sections/home/hero";
+import { WebStacks } from "@/components/sections/home/web-stacks";
+import { featuredProjects } from "@/lib/data/projects";
 
 export default function Home() {
   return (
     <PageTransition>
       <Hero />
-      <BentoGrid />
+      <FeaturedProjects projects={featuredProjects} />
+      <WebStacks />
+      <ContactCta />
     </PageTransition>
   );
 }

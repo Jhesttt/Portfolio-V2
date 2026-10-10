@@ -48,5 +48,3 @@ export function formatPeriod({ start, end }: Experience["period"]) {
   return `${start} - ${end}`;
 }
 
-export const currentRole = experience[0];
-export const currentRoleStat = { value: "200+", label: "Jira tickets resolved for Fortune 500 eForms and portals" };

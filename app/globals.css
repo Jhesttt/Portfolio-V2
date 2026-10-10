@@ -12,6 +12,9 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* Desktop-only motion layouts (pinned horizontal gallery). Mirrors PIN_QUERY in featured-projects.tsx. */
+@custom-variant pinned (@media (min-width: 64rem) and (prefers-reduced-motion: no-preference));
+
 @theme static {
   --color-*: initial;
   --shadow-*: initial;
@@ -55,6 +58,9 @@
   --font-mono: var(--font-mono-face), ui-monospace, "SFMono-Regular", monospace;
 
   /* Fluid type scale */
+  --text-hero: clamp(2rem, 0.95rem + 4.6vw, 4.5rem);
+  --text-hero--line-height: 1.08;
+  --text-hero--letter-spacing: -0.035em;
   --text-display: clamp(2.5rem, 1.55rem + 4.2vw, 5.25rem);
   --text-display--line-height: 1.02;
   --text-display--letter-spacing: -0.035em;
@@ -451,5 +457,59 @@ html[data-theme-switching]::view-transition-new(root) {
   .theme-icon-moon {
     transform: none;
     transition: opacity 0.2s linear;
+  }
+}
+
+/* ==========================================================================
+   Marquee (web stacks). Constant speed is the point, so linear is correct here.
+   Two identical lists sit in one track; moving by -50% loops seamlessly.
+   Paused on hover and keyboard focus. Reduced motion: static, wrapped, one copy.
+   ========================================================================== */
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee-scroll var(--marquee-duration, 70s) linear infinite;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Soft edges so items fade in and out instead of being cut off. */
+.fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, var(--bg) 8%, var(--bg) 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, var(--bg) 8%, var(--bg) 92%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    width: 100%;
+  }
+
+  /* One copy, wrapped and centred so every item is visible without any movement. */
+  .marquee-copy {
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline: 1rem;
+  }
+
+  .marquee-copy[aria-hidden="true"] {
+    display: none;
+  }
+
+  .fade-x {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }

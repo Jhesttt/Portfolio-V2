@@ -1,25 +1,48 @@
 export type TechName =
-  | "nextjs"
-  | "react"
+  | "html"
+  | "css"
+  | "javascript"
   | "typescript"
+  | "react"
+  | "nextjs"
   | "tailwind"
-  | "node"
-  | "postgresql"
-  | "drizzle"
-  | "jquery"
   | "bootstrap"
-  | "git";
+  | "jquery"
+  | "node"
+  | "express"
+  | "postgresql"
+  | "mysql"
+  | "mongodb"
+  | "firebase"
+  | "drizzle"
+  | "git"
+  | "github"
+  | "postman"
+  | "figma";
 
-/** Marks shown in the Home stack cell. The full grouped list arrives with the About page. */
+/**
+ * The stack shown on Home. Base list is V1's "Web Stacks"; TypeScript, PostgreSQL, Drizzle, jQuery and
+ * Bootstrap are added from the brief (Presyo and the Rival role). The grouped version arrives with the About page.
+ */
 export const homeStack: { id: TechName; label: string }[] = [
-  { id: "nextjs", label: "Next.js" },
-  { id: "react", label: "React" },
+  { id: "html", label: "HTML5" },
+  { id: "css", label: "CSS3" },
+  { id: "javascript", label: "JavaScript" },
   { id: "typescript", label: "TypeScript" },
+  { id: "react", label: "React" },
+  { id: "nextjs", label: "Next.js" },
   { id: "tailwind", label: "Tailwind CSS" },
-  { id: "node", label: "Node.js" },
-  { id: "postgresql", label: "PostgreSQL" },
-  { id: "drizzle", label: "Drizzle" },
-  { id: "jquery", label: "jQuery" },
   { id: "bootstrap", label: "Bootstrap" },
+  { id: "jquery", label: "jQuery" },
+  { id: "node", label: "Node.js" },
+  { id: "express", label: "Express" },
+  { id: "postgresql", label: "PostgreSQL" },
+  { id: "mysql", label: "MySQL" },
+  { id: "mongodb", label: "MongoDB" },
+  { id: "firebase", label: "Firebase" },
+  { id: "drizzle", label: "Drizzle" },
   { id: "git", label: "Git" },
+  { id: "github", label: "GitHub" },
+  { id: "postman", label: "Postman" },
+  { id: "figma", label: "Figma" },
 ];

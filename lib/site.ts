@@ -5,10 +5,10 @@
 
 export const site = {
   name: "Jhestin Digap",
-  role: "Frontend Developer",
-  title: "Jhestin Digap | Frontend Developer",
+  role: "Web Developer",
+  title: "Jhestin Digap | Web Developer",
   description:
-    "Portfolio of Jhestin Digap, a frontend-focused web developer building with Next.js, React and TypeScript.",
+    "Jhestin Digap is a Web Developer from the Philippines specializing in modern web development, React, Next.js, JavaScript, and full-stack applications.",
   location: "Antipolo City, PH",
   /** Static year: reading the clock in a Server Component breaks prerendering under cacheComponents. */
   copyrightYear: 2026,
