@@ -1,4 +1,4 @@
-# Jhestin Digap â€” Portfolio V2
+# Jhestin Digap: Portfolio V2
 
 Personal portfolio of Jhestin Digap, web developer. Home, About, Projects and Contact, with light and dark
 themes, page transitions and scroll-driven motion.
