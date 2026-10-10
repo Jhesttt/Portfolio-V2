@@ -1,9 +1,9 @@
-﻿# Jhestin Digap â€” Portfolio V2
+# Jhestin Digap â€” Portfolio V2
 
 Personal portfolio of Jhestin Digap, web developer. Home, About, Projects and Contact, with light and dark
 themes, page transitions and scroll-driven motion.
 
-**Stack:** Next.js 16 (App Router, Cache Components) Â· TypeScript Â· Tailwind CSS v4 Â· Motion Â· next-themes Â·
+**Stack:** Next.js 16 (App Router, Cache Components) · TypeScript · Tailwind CSS v4 · Motion · next-themes ·
 deployed on Vercel.
 
 ## Develop
@@ -29,7 +29,7 @@ npm run build    # production build
 | Images | `public/projects/` (screenshots), `public/images/` (photos, icons) |
 | Resume | `public/resume/Jhestin-Digap-Resume.pdf` |
 
-Project screenshots are shown in a 1920 Ã— 907 frame; use that shape for new thumbnails.
+Project screenshots are shown in a 1920 × 907 frame; use that shape for new thumbnails.
 
 ## Deploy
 
