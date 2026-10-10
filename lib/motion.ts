@@ -119,15 +119,15 @@ export const interaction = {
 /** Mobile menu overlay and its staggered links. */
 export const menu = {
   overlay: {
-    hidden: { opacity: 0, clipPath: "inset(0 0 100% 0 round 2rem)" },
+    hidden: { opacity: 0, clipPath: "inset(0 0 100% 0)" },
     visible: {
       opacity: 1,
-      clipPath: "inset(0 0 0% 0 round 2rem)",
+      clipPath: "inset(0 0 0% 0)",
       transition: { duration: duration.slow, ease: ease.inertia, staggerChildren: 0.06, delayChildren: 0.18 },
     },
     exit: {
       opacity: 0,
-      clipPath: "inset(0 0 100% 0 round 2rem)",
+      clipPath: "inset(0 0 100% 0)",
       transition: { duration: duration.base, ease: ease.exit },
     },
   } satisfies Variants,

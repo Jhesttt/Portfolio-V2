@@ -313,8 +313,8 @@
 
 .theme-icon {
   transition:
-    opacity 0.45s var(--ease-settle),
-    transform 0.6s var(--ease-inertia);
+    opacity 0.6s var(--ease-settle),
+    transform 0.8s var(--ease-inertia);
 }
 
 .theme-icon-moon {
@@ -419,7 +419,7 @@ html[data-theme-switching]::view-transition-new(root) {
 
 html[data-theme-switching]::view-transition-new(root) {
   z-index: 10;
-  animation: vt-theme-reveal 650ms var(--ease-inertia) both;
+  animation: vt-theme-reveal 1000ms var(--ease-inertia) both;
 }
 
 @keyframes vt-theme-reveal {

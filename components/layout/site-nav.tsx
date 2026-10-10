@@ -8,14 +8,17 @@ import { BrandMark } from "@/components/ui/brand-mark";
 import { DirectionalLink } from "@/components/ui/directional-link";
 import { cn } from "@/lib/utils";
 import { fadeDown, menu, spring } from "@/lib/motion";
-import { nav, site } from "@/lib/site";
+import { nav } from "@/lib/site";
 import { ThemeToggle } from "./theme-toggle";
 
 const FOCUSABLE = "a[href], button:not([disabled])";
 
+/** Desktop tabs. Home is the monogram on the left, so it is not repeated as a tab. */
+const tabs = nav.filter((item) => item.href !== "/");
+
 /**
- * Floating glass pill. Desktop: brand, four links with a sliding active marker,
- * theme toggle. Mobile: brand, toggle, menu button that opens a full-screen sheet.
+ * Floating glass pill. Desktop: JD monogram (Home), three tabs, theme toggle, with one active
+ * marker that slides between them. Mobile: monogram, toggle, menu button that opens a full-screen sheet.
  *
  * Stacking inside the header: sheet z-30, pill z-40, so the morphing menu button stays clickable above the sheet.
  * The view-transition name sits on the pill, not the header: a named ancestor becomes a backdrop root and
@@ -84,18 +87,26 @@ export function SiteNav() {
       >
         <DirectionalLink
           href="/"
-          aria-label={`${site.name}, home`}
-          className="flex h-11 items-center gap-2.5 rounded-full pr-3 pl-2 text-fg transition-colors duration-300 hover:bg-surface-hover"
+          aria-label="Home"
+          aria-current={pathname === "/" ? "page" : undefined}
+          className={cn(
+            "relative grid size-11 shrink-0 place-items-center rounded-full transition-colors duration-300",
+            pathname === "/" ? "text-on-highlight" : "text-accent hover:bg-surface-hover",
+          )}
         >
-          <BrandMark className="size-7 text-accent" />
-          <span className="font-display text-body font-semibold tracking-tight max-sm:sr-only">
-            {site.name}
-          </span>
+          {pathname === "/" && (
+            <motion.span
+              layoutId="nav-active"
+              transition={spring.snappy}
+              className="absolute inset-0 rounded-full bg-highlight"
+            />
+          )}
+          <BrandMark className="relative size-6" />
         </DirectionalLink>
 
         <ul className="hidden items-center md:flex">
-          {nav.map((item) => {
-            const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+          {tabs.map((item) => {
+            const active = pathname.startsWith(item.href);
             return (
               <li key={item.href}>
                 <DirectionalLink
@@ -147,7 +158,7 @@ export function SiteNav() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="glass-blur pointer-events-auto fixed inset-2 z-30 flex flex-col justify-center overflow-y-auto rounded-card border border-glass-line bg-bg/85 px-8 md:hidden"
+            className="glass-blur pointer-events-auto fixed inset-0 z-30 flex flex-col justify-center overflow-y-auto bg-bg/90 px-8 pt-24 pb-12 md:hidden"
           >
             <ul className="flex flex-col gap-2">
               {nav.map((item, index) => {
