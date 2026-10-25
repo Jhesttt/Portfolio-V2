@@ -26,7 +26,7 @@ export default function ProjectsPage() {
       <ProjectGroup
         id="development"
         title="Web development"
-        description="Web apps and sites I built, from client work to a campus booking system."
+        description="Web apps and sites I built, from a community tool and client work to my first portfolio."
         projects={developmentProjects}
       />
 

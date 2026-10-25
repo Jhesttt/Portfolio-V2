@@ -17,8 +17,8 @@ export function FeaturedProjects({ projects }: { projects: Project[] }) {
             Featured Projects
           </h2>
           <p className="mt-4 max-w-xl text-fg-muted">
-            A selection of products and websites I&apos;ve designed and built, from a costing SaaS to a campus
-            booking system.
+            A selection of products and websites I&apos;ve designed and built, from a costing SaaS to a
+            community planner for a farming game.
           </p>
         </div>
         <DirectionalLink

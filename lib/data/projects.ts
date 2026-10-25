@@ -49,6 +49,23 @@ export const presyo: Project = {
   ],
 };
 
+export const pixelFarm: Project = {
+  slug: "pixel-farm",
+  title: "Pixel Farm",
+  category: "development",
+  label: "Community tool",
+  summary:
+    "A layout planner I built for the players of Caramel, an isometric farming Roblox game. Drag crops, scarecrows and orbs onto a grid, see what each one covers in top or isometric view, and export it as an image. Shared with the Caramel community with the creator's approval.",
+  image: {
+    src: "/projects/pixel-farm-promo.png",
+    width: 2560,
+    height: 1209,
+    alt: "Pixel Farm promo: a browser window and a phone showing an isometric farm layout with crops and areas of effect, beside the title Pixel Farm Farm Layout Planner and a list of its features.",
+  },
+  stack: ["React", "TypeScript", "Vite", "Tailwind CSS", "Zustand", "Zod", "Vitest"],
+  links: { live: "https://pixel-farm-layout.vercel.app", github: "https://github.com/Jhesttt/pixel-farm-layout" },
+};
+
 export const dotnote: Project = {
   slug: "dotnote",
   title: "DotNote.",
@@ -86,7 +103,7 @@ export const anemolab: Project = {
 export const ursEvents: Project = {
   slug: "urs-event-booking",
   title: "URS Event Booking System",
-  category: "development",
+  category: "practice",
   label: "University of Rizal System",
   summary:
     "Led the development of our campus's official event booking system, enabling event reservations for student councils with conflict-free scheduling. Deployed using Vercel, Render, and Railway.",
@@ -347,14 +364,15 @@ export const counter: Project = {
 export const allProjects: Project[] = [
   presyo,
   // Web development, in display order
+  pixelFarm,
   sanjo,
   dotnote,
   portfolioV1,
-  ursEvents,
   // UI/UX design
   rdchimeInventory,
   weatherSense,
   // Practice, most complex first: framework apps, multi-section sites, logic-heavy tools, then single components
+  ursEvents, // team-built booking system (offline); sits here so the 3-column grid ends on a full row
   newsHomepage, // Next.js + React components
   fyloLanding, // React landing page
   anemolab, // multi-section site with Materialize
@@ -369,7 +387,7 @@ export const allProjects: Project[] = [
 ];
 
 /** The four projects shown on Home, in order. Change these slugs to swap them. */
-export const featuredSlugs = ["presyo", "dotnote", "sanjo", "portfolio-v1"] as const;
+export const featuredSlugs = ["presyo", "pixel-farm", "sanjo", "portfolio-v1"] as const;
 
 const bySlug = (slug: string) => allProjects.find((p) => p.slug === slug);
 
